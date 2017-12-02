@@ -1,0 +1,45 @@
+﻿StartGameIntent to start {Games}
+StartGameIntent to start {Games} with {Participents} people
+StartGameIntent to start {Games} for {Participents} people
+StartGameIntent to start {Games} {Version} version
+StartGameIntent to start {Games} with {Participents} people {Version} version
+StartGameIntent to start {Games} for {Participents} people {Version} version
+StartGameIntent to tell me more about {Games} 
+StartGameIntent to tell me more about {Games} {Version} version
+StartGameIntent what can I play with {Participents} people
+StartGameIntent what can we play with {Participents} people
+SeshBoxIntent to pick a random game
+SeshBoxIntent to start a random game
+SeshBoxIntent to pick a new game
+SeshBoxIntent to start a new game
+StartGameIntent to pick a random game for {Participents} people
+StartGameIntent to start a random game for {Participents} people
+StartGameIntent to pick a new game for {Participents} people
+StartGameIntent to start a new game for {Participents} people
+
+AMAZON.HelpIntent help
+AMAZON.HelpIntent I need help
+AMAZON.HelpIntent What do I say
+AMAZON.HelpIntent What is going on
+AMAZON.HelpIntent What
+
+AMAZON.StopIntent no
+AMAZON.StopIntent nope
+AMAZON.StopIntent no thanks
+AMAZON.StopIntent no thank you
+AMAZON.StopIntent stop
+AMAZON.StopIntent finished
+
+ConfirmIntent yes
+ConfirmIntent sounds good to me
+ConfirmIntent I like the sound of that
+ConfirmIntent we like the sound of that
+ConfirmIntent yes go ahead
+ConfirmIntent go ahead
+ConfirmIntent yes please
+ConfirmIntent I want to play that
+ConfirmIntent I want to hear about that
+ConfirmIntent I want to know more about that
+ConfirmIntent Yes want to play that
+ConfirmIntent Yes want to hear about that
+ConfirmIntent Yes want to know more about that

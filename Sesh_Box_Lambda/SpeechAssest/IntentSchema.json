@@ -1,0 +1,42 @@
+﻿{
+    "intents": [
+        {
+            "intent": "AMAZON.PauseIntent"
+        },
+        {
+            "intent": "AMAZON.ResumeIntent"
+        },
+        {
+            "intent": "AMAZON.helpIntent"
+        },
+        {
+            "intent": "AMAZON.StopIntent"
+        },
+        {
+            "intent": "AMAZON.CancelIntent"
+        },
+        {
+            "intent": "AMAZON.NextIntent"
+        },
+        {
+            "intent": "ConfirmIntent"
+        },
+        {
+            "intent": "StartGameIntent",
+            "slots": [
+                {
+                    "name": "Games",
+                    "type": "LIST_OF_GAMES"
+                },
+                {
+                    "name": "Participents",
+                    "type": "AMAZON.NUMBER"
+                },
+                {
+                    "name": "Version",
+                    "type": "PICOLO_VERSIONS"
+                }
+            ]
+        }
+    ]
+}
