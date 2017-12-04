@@ -7,7 +7,7 @@
             "intent": "AMAZON.ResumeIntent"
         },
         {
-            "intent": "AMAZON.helpIntent"
+            "intent": "AMAZON.HelpIntent"
         },
         {
             "intent": "AMAZON.StopIntent"
