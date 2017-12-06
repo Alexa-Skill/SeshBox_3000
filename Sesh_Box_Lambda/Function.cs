@@ -237,6 +237,11 @@ namespace Sesh_Box_Lambda
             return skillResponse;
         }
 
+        private string getGameVerison() {
+            string gameversion = "";
+            return gameversion;
+        }
+
         private SkillResponse FurtherResponse(bool shouldEndSession, string outputSpeech, string cardText) {
             var response = new ResponseBody
             {
