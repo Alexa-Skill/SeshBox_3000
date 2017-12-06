@@ -7,13 +7,222 @@ namespace Sesh_Box_Lambda
 {
     class PicoloRules
     {
+        string gameVersion;
 
         string randomParticipentName = "Ciaran";
         int beverageConsumption = 5;
         Random rnd = new Random();
-        public string Rules(string version)
+        List<int> randomNumberCheck = new List<int>();
+
+        public string GameVersion { get => gameVersion; set => gameVersion = value; }
+
+        public string Rules()
         {
-            List<string> warRules = new List<string>(new string[] {
+
+            List<string> gettingSillyRules = new List<string>(new string[] {
+                randomParticipentName + ", imitate a guy taking a shit or drink " + beverageConsumption + " times",
+                randomParticipentName + ", show us your balls or drink " + beverageConsumption + " times",
+                "The last person to shout bitch, finish your drink!",
+                randomParticipentName + " arm wrestle " + randomParticipentName + ", the loser drinks " + beverageConsumption + " times. Or if you want to chicken out, you drink " + beverageConsumption + " times",
+                "The last person to shout " + randomParticipentName + ", lick my balls!, drink " + beverageConsumption + " times",
+                "The first to burp gives out " + beverageConsumption + " sips",
+                "The youngest person to lose their virginity, give out " + beverageConsumption + " sips",
+                "The person who began masturbating the youngest, give out " + beverageConsumption + " sips",
+                randomParticipentName + ", pick a booger or drink " + beverageConsumption + " times",
+                randomParticipentName + ", if you have less than two balls give out " + beverageConsumption + " sips",
+                randomParticipentName + ", show your pubes or drink " + beverageConsumption + " times",
+                "At the start of each rule until the end of the game, the first person to audibly fart gives out  sips",
+                "The most muscular person between " + randomParticipentName + " and " + randomParticipentName + " can give out " + beverageConsumption + " sips",
+                "Between " + randomParticipentName + " and " + randomParticipentName + ", whoever pooped most recently can give out " + beverageConsumption + " sips",
+                "The person who gave a blowjob most recently gives out " + beverageConsumption + " sips",
+                randomParticipentName + ", if you've ever given someone a blowjob, drink " + beverageConsumption + " times",
+                randomParticipentName + ", lick the ground or drink " + beverageConsumption + " times",
+                "Push up competition between " + randomParticipentName + " and " + randomParticipentName + ". The loser drinks " + beverageConsumption + " times. Or if you want to chicken out, you drink " + beverageConsumption + " times",
+                "The person who masturbated most recently, give out " + beverageConsumption + " sips",
+                randomParticipentName + ", put your face on " + randomParticipentName + "'s butt or drink " + beverageConsumption + " times",
+                randomParticipentName + ", pour a bit of your drink into each player's glass",
+                "Everybody pour some of your drink into " + randomParticipentName + "'s glass",
+                randomParticipentName + ", lick " + randomParticipentName + "'s ear or finish your drink",
+                randomParticipentName + " and " + randomParticipentName + ", take off your pants or finish your drink",
+                randomParticipentName + ", finish your drink or fill it to the top",
+                randomParticipentName + ", take the glass of the player to your right and feed them " + beverageConsumption + " drinks",
+                "The first person to correctly say the year that Jesus was born, give out " + beverageConsumption + " sips",
+                randomParticipentName + ", put an ice cube in your underwear for five minutes",
+                randomParticipentName + ", pinch " + randomParticipentName + "'s nipples or drink " + beverageConsumption + " times",
+                randomParticipentName + ", show your ass to everyone",
+                randomParticipentName + " drink " + beverageConsumption + " times upside down (hands on the ground, legs in the air) " + randomParticipentName + " and " + randomParticipentName + " will help keep you balanced",
+                "If you would sleep with the person to your left, drink " + beverageConsumption + " times",
+                "If you would sleep with the person to your right, drink " + beverageConsumption + " times",
+                "If you check the toilet paper after wiping your ass, drink " + beverageConsumption + " times",
+                randomParticipentName + " if you have ever thought about a cousin while masturbating, drink " + beverageConsumption + " times",
+                "If you've had sex in the last week, drink " + beverageConsumption + " times",
+                randomParticipentName + ", if you've crossed swords with a cousin, drink " + beverageConsumption + " times",
+                randomParticipentName + ", if you've ever masturbated into a sock, drink " + beverageConsumption + " times",
+                randomParticipentName + ", put a finger in " + randomParticipentName + "'s nose. Otherwise, drink " + beverageConsumption + " times",
+                randomParticipentName + ", drink as many times as dicks that you have sucked",
+                "Whoever has had the fastest orgasm, give out " + beverageConsumption + " drinks",
+                "If you've slept with  different people in the same week, drink " + beverageConsumption + " times",
+                "If you've slept with  different people in the same day, drink " + beverageConsumption + " times",
+                randomParticipentName + ", stroke " + randomParticipentName + "'s crotch. If you don't, everyone has to drink " + beverageConsumption + " times",
+                "If you've ever had more than  friends with benefits, raise your glass and say long live fuck buddies! and down your drink",
+                "If you want to have sex tonight, give out " + beverageConsumption + " sips",
+                "If you've ever cheated in a relationship, sneakily drink  time. Don't worry, no one saw you take that sip.",
+                randomParticipentName + ", do a pushup with one hand or drink " + beverageConsumption + " times",
+                randomParticipentName + ", act out deep throating or finish your drink",
+                randomParticipentName + ", pretend you are masturbating for  seconds or finish your drink",
+                "Drink " + beverageConsumption + " times if you have shown your penis or boobs on snapchat",
+                randomParticipentName + ", drink " + beverageConsumption + " times without putting your lips on your glass",
+                randomParticipentName + ", put something edible in " + randomParticipentName + "'s glass. When the drink is finished, he/she will have to eat it",
+                randomParticipentName + " and " + randomParticipentName + ", down your drinks. The winner gets immunity for  minutes",
+                "If you have ever masturbated to GQ, drink " + beverageConsumption + " times",
+                "Someone put a pubic hair in " + randomParticipentName + "'s glass before he/she can finish chugging it",
+                "If you've ever fingered you own ass, drink " + beverageConsumption + " times",
+                randomParticipentName + ", drink as many times as the number of times you masturbated in the last 7 days",
+                "If you've ever had sex with a hooker, give out " + beverageConsumption + " sips",
+                randomParticipentName + ", drink " + beverageConsumption + " times in cumshot mode, (don't let the glass touch your lips)",
+                "If you have masturbated to a cartoon, drink " + beverageConsumption + " times",
+                randomParticipentName + ", either let " + randomParticipentName + " change your Facebook profile picture until the end of the game, or finish your drink",
+                randomParticipentName + ", say " + randomParticipentName + "’s name by burping or drink " + beverageConsumption + " times.",
+                randomParticipentName + ", you choose: add liquor to your glass or drink " + beverageConsumption + " times.",
+                randomParticipentName + ", drink as many sips as you'd like. " + randomParticipentName + " and " + randomParticipentName + " will drink double.",
+                "The next player who has to drink will triple his/her number of drinks!",
+                "The next player who has to drink will quadruple his/her number of drinks!",
+                "For girls, the last one to have your period, drink " + beverageConsumption + " times.",
+                "If you have burped or farted since the beginning of the game, drink " + beverageConsumption + " times.",
+                randomParticipentName + ", allow one player to take a closeup picture of your crotch with your phone or drink " + beverageConsumption + " times.",
+                "The last player to have tasted a girl's cum, give out " + beverageConsumption + " sips.",
+                "If you've had sex with a prostitute once in your life, give out " + beverageConsumption + " sips. ",
+                "If you've had more longterm relationships than friends with benefits, give out " + beverageConsumption + " sips.",
+                "If you have a penis under  inches, drink " + beverageConsumption + " times.",
+                "If you took a shit today, drink " + beverageConsumption + " times.",
+                randomParticipentName + ", choose between drinking " + beverageConsumption + " times or kissing " + randomParticipentName + "’s feet without socks or shoes on.",
+                randomParticipentName + ", if you can do 5 push-ups, " + randomParticipentName + " has to drink " + beverageConsumption + " times.",
+                randomParticipentName + ", feed the arm holding your drink under your leg and then drink " + beverageConsumption + " times.",
+                "The sillier person between " + randomParticipentName + " and " + randomParticipentName + ", drink " + beverageConsumption + " times.",
+                randomParticipentName + ", if " + randomParticipentName + " counts to 5 before you can spin around  times, you have to finish your glass! Ready, set, go!",
+                randomParticipentName + ", if you have ever puked on someone, drink " + beverageConsumption + " times. If not, give out " + beverageConsumption + " sips.",
+                "If you've ever masturbated thinking of a friend, drink " + beverageConsumption + " times.",
+                "The first player to post a Snapchat story, give out " + beverageConsumption + " sips.",
+                randomParticipentName + ", if you've ever beaten up somebody, drink " + beverageConsumption + " times.",
+                randomParticipentName + ", if you've ever gotten beat up, give out " + beverageConsumption + " sips.",
+                "If you've ever done a shit n' shower (poop without wiping and directly take a shower), drink " + beverageConsumption + " times.",
+                "If you've ever swallowed a guy's cum, drink " + beverageConsumption + " times.",
+                "If you've ever given money to a homeless person, give out " + beverageConsumption + " sips",
+                "If you've ever spied on one of your neighbors to see them naked, drink " + beverageConsumption + " times.",
+                "The first person to show your junk, give out " + beverageConsumption + " sips!",
+                "Drink " + beverageConsumption + " times if you've ever drawn a tree",
+                "Drink " + beverageConsumption + " times if you shit your pants this year, racing stripes count",
+                "Drink " + beverageConsumption + " times if you were on a porn site yesterday",
+                "Drink " + beverageConsumption + " times if you pissed yourself this year",
+                "Drink " + beverageConsumption + " times if you've ever pissed in a bathroom sink",
+                "Drink " + beverageConsumption + " times if you've ever pissed in a sink",
+                "Drink " + beverageConsumption + " times if you've ever re-swallowed your vomit",
+                "Drink " + beverageConsumption + " times if you've ever fantasized about a cartoon character",
+                "Drink " + beverageConsumption + " times if you've ever looked at your anus in the mirror",
+                "Those who shave their anus drink " + beverageConsumption + " times",
+                randomParticipentName + ", sniff " + randomParticipentName + "'s arm pits or drink " + beverageConsumption + " times",
+                randomParticipentName + ", scratch " + randomParticipentName + "'s back or drink " + beverageConsumption + " times",
+                randomParticipentName + ", choose between drinking one sip from each player's drink or drink 5 times from your own",
+                randomParticipentName + " and " + randomParticipentName + " have a biggest biceps contest, players judge the loser that'll drink " + beverageConsumption + " times",
+                randomParticipentName + ", sniff " + randomParticipentName + "'s underwear or drink " + beverageConsumption + " times",
+                "Drink " + beverageConsumption + " times if you've ever been fingered in the ass",
+                randomParticipentName + ", spin around 5 times and drink each time you face the stupid guys who first looked at you",
+                "Those who have ever tasted a few drops of piss during foreplay drink " + beverageConsumption + " times",
+                randomParticipentName + " and " + randomParticipentName + " are in a silly contest! Slap yourself in the face as hard as you can, the hardest wins! The loser drink " + beverageConsumption + " times",
+                randomParticipentName + " and " + randomParticipentName + " are in a silly contest! Slap yourself on the butt as hard as you can, the hardest wins! The loser drink " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer with their arms in the air, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer standing on one leg, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer spinning around, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer doing squats, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer saying I love ass fucking without laughing, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer saying I am ugly without laughing, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer saying I am stupid without laughing, the loser drinks " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer doing a plank, the loser drinks " + beverageConsumption + " times",
+                randomParticipentName + " and " + randomParticipentName + " are having a silly contest! Text as many contacts as you can in  minute, the one to send most wins! The loser drink " + beverageConsumption + " times",
+                "Silly contest with " + randomParticipentName + " vs. " + randomParticipentName + " from now on! The winner is the one who lasts longer holding his/her tongue with two fingers, the loser drinks " + beverageConsumption + " times",
+                randomParticipentName + " weighs one of the male player's balls or drinks " + beverageConsumption + " times",
+                "Drink " + beverageConsumption + " times if you've ever farted while having sex",
+                "Guys, last one to take his shirt off drinks " + beverageConsumption + " times!",
+                randomParticipentName + ", challenge " + randomParticipentName + " to any action you want. If he or she refuses it's a " + beverageConsumption + " sips penalty!",
+                "Bearded people drink " + beverageConsumption + " times!",
+                "If you've taken a shit in the ocean drink " + beverageConsumption + " times",
+                "Drink " + beverageConsumption + " times if you've taken a shit on the street",
+                randomParticipentName + ", change the Facebook status of any player. If it reaches 5 likes before the end of the game you'll decide who will finish their drink, you drink as many times as there are likes otherwise...",
+                randomParticipentName + ", imitate a drunk dog barking and drink " + beverageConsumption + " times!",
+                 randomParticipentName + " drinks " + beverageConsumption + " times while " + randomParticipentName + " blowing in " + randomParticipentName + "'s face",
+                randomParticipentName + ", stand 5 minutes with two fingers in your ears or drink " + beverageConsumption + " times on every new event",
+                randomParticipentName + ", count to  loudly or drink " + beverageConsumption + " times",
+                randomParticipentName + " must get on " + randomParticipentName + "'s back and ride him/her like a cowboy/cowgirl for  seconds, " + beverageConsumption + " sips if you lose or refuse",
+                randomParticipentName + " break an ice cube on your forehead or drink " + beverageConsumption + " times",
+                randomParticipentName + ", let " + randomParticipentName + " break an ice cube on your forehead, refuse and you'll drink " + beverageConsumption + " times",
+                "I hold you, you hold me, by our little goatee, the first one of us two, who will laugh, will finish his drink " + randomParticipentName + " and " + randomParticipentName + " come on!",
+                randomParticipentName + ", what's the last thing that went in your ass? Answer and drink " + beverageConsumption + " times!",
+                "Drink " + beverageConsumption + " times if you're ready to finish the game totally naked",
+                "Drink " + beverageConsumption + " times if you've ever farted loudly in front of strangers",
+                "Drink " + beverageConsumption + " times if you've ever farted on purpose in front of strangers",
+                "Drink " + beverageConsumption + " times if you've ever eaten pet food",
+                "Drink " + beverageConsumption + " times if you've ever had sex in front of your pet",
+                "Drink " + beverageConsumption + " times if you've ever had sex while riding public transportation",
+                "Drink " + beverageConsumption + " times if you still have some nude pictures of your ex",
+                "Drink " + beverageConsumption + " times if you have nude pictures of your boyfriend or girlfriend",
+                "Drink " + beverageConsumption + " times if you've ever bought porn magazines",
+                "Drink " + beverageConsumption + " times if you've ever taken a golden shower",
+                "If you've scored with a MILF or a DILF, drink " + beverageConsumption + " times",
+                randomParticipentName + ", show your anus or drink " + beverageConsumption + " times",
+                "Drink " + beverageConsumption + " times if you've fucked someone and then forgot their name",
+                "Virgin anuses drink " + beverageConsumption + " times",
+                "Silly contest between " + randomParticipentName + " and " + randomParticipentName + ", don't block the game! Shake hands, the first one to give up down their drink",
+                "The first one to show their balls give out " + beverageConsumption + " sips!",
+                "Give out " + beverageConsumption + " sips if you've ever pissed on a meal before serving it",
+                "Give out " + beverageConsumption + " sips if you've ever put fruit or vegetables into your partner. You know what we mean",
+                "Players with less than half of their drink left, down it!",
+                "If you cut your toe nails this week drink " + beverageConsumption + " times",
+                "Snorers in the room drink " + beverageConsumption + " times while snoring",
+                "Drink " + beverageConsumption + " times if you've ever pissed on someone",
+                "Drink " + beverageConsumption + " times if you've ever tortured bugs with a magnifying glass",
+                "Drink " + beverageConsumption + " times if you've ever turned a fly into a fireball with aerosol and a lighter",
+                "Drink " + beverageConsumption + " times if you've ever torn off a fly's wings",
+                "Drink " + beverageConsumption + " times if you've ever shit yourself in class",
+                "Drink " + beverageConsumption + " times if you've ever pissed your pants in class",
+                "Drink " + beverageConsumption + " times if you've ever googled fart domination",
+                "Drink " + beverageConsumption + " times if you've ever googled  girls  cup",
+                "Drink " + beverageConsumption + " times if you've ever googled  guys  stump",
+                "Drink " + beverageConsumption + " times if you've ever watched chinese porn where the scene takes place in a bus with  guys",
+                "Everybody take " + beverageConsumption + " sips. Except " + randomParticipentName + ", who makes great blowjobs with his/her ass",
+                "Guys who have heard a pussy fart drink " + beverageConsumption + " times",
+                "Girls who have let out a pussy fart while having sex drink " + beverageConsumption + " times",
+                randomParticipentName + " put an ice cube in his/her asshole or drink " + beverageConsumption + " times",
+                randomParticipentName + ", drink as many sips as pussies you have licked ",
+                randomParticipentName + ", go ring the neighbor's doorbell or drink " + beverageConsumption + " times",
+                randomParticipentName + ", pour some of your drink into your underwear or drink " + beverageConsumption + " times",
+                randomParticipentName + ", text one of your contacts with I shit in my pants once again, or drink " + beverageConsumption + " times",
+                randomParticipentName + ", go piss in the sink or drink " + beverageConsumption + " times",
+                randomParticipentName + ", put your face in toilet water or drink " + beverageConsumption + " times",
+                randomParticipentName + ", pour some of your drink over your head or drink " + beverageConsumption + " times",
+                randomParticipentName + ", put a bathrobe on and go ask the neighbor for some ice cubes for your drink, or drink " + beverageConsumption + " times",
+                randomParticipentName + ", beauty mask on! Spread some toothpaste on your face or drink " + beverageConsumption + " times",
+                "The one who has the biggest boobs gives out " + beverageConsumption + " sips",
+                randomParticipentName + ", eat one of your boogers or drink " + beverageConsumption + " times",
+                randomParticipentName + ", drink from every bottle on the table",
+                randomParticipentName + ", send a picture of your dick or pussy to  contacts or drink " + beverageConsumption + " times",
+                randomParticipentName + ", hold a handstand for 5 seconds with your pants around your ankles or drink " + beverageConsumption + " times",
+                randomParticipentName + ", do a cartwheel or drink " + beverageConsumption + " times",
+                randomParticipentName + ", lick " + randomParticipentName + "'s butt crack or drink " + beverageConsumption + " times",
+                "Drink " + beverageConsumption + " times if you've ever bought an enema syringe",
+                "Drink " + beverageConsumption + " times if you've ever used a water jet to cum",
+                randomParticipentName + " take a sip of your drink and spit it in " + randomParticipentName + "'s glass",
+                "Drink " + beverageConsumption + " times if you've ever googled bukkake carrot",
+                "Girls who have lost a condom in their cherry drink " + beverageConsumption + " times",
+                "Girls who have lost a tampon in their pussy drink " + beverageConsumption + " times",
+                randomParticipentName + ", explain how to do a no wiper on the toilet, and drink " + beverageConsumption + " times",
+                randomParticipentName + " eats an ice cube or drinks " + beverageConsumption + " times",
+                randomParticipentName + ", choose a four-eyed player and put a fingerprint on his/her glasses, " + beverageConsumption + " sips in case of refusal. If no one is near/farsighted, give out " + beverageConsumption + " sips",
+                randomParticipentName + ", if you have a clitoris drink " + beverageConsumption + " times, give out " + beverageConsumption + " sips otherwise",
+                randomParticipentName + ", if you have testes drink " + beverageConsumption + " times, give out " + beverageConsumption + " sips otherwise",
+                randomParticipentName + ", eat some player's hair, " + beverageConsumption + "-sip penalty in case of a refusal"
+            });
+
+            List<string> calienteRules = new List<string>(new string[] {
                 randomParticipentName + "  if you are a girl lick your finger in an erotic way. If you are a guy do a cunnilingus with two fingers. Or finish your drink",
                 "If you've had sex in a public place drink " + beverageConsumption + "  times",
                 randomParticipentName + "  pretend you are having an orgasm for  seconds or finish your drink",
@@ -316,14 +525,28 @@ namespace Sesh_Box_Lambda
                 "Drink " + beverageConsumption + " times if you've ever had your boyfriend or girlfriend stolen by one of your friends",
                 "Drink " + beverageConsumption + " times if you've ever taken a shit in a Turkish toilet" });
 
-            int index = rnd.Next(1,100);
-            if (version == "War")
+            
+            int index = 0;
+            int randomIndex = rnd.Next(1,100);
+
+            if (!randomNumberCheck.Contains(randomIndex))
             {
-                return warRules[index];
+                randomNumberCheck.Add(randomIndex);
             }
-            else if (version == "getting started")
+            else {
+                index = randomIndex;
+            }
+
+            if (gameVersion == "Caliente")
+            {
+                return calienteRules[index];
+            }
+            else if (gameVersion == "getting started")
             {
                 return defaultRules[index];
+            }
+            else if (gameVersion == "geting illy") {
+                return gettingSillyRules[index];
             }
             return "Major fucking error with the rule return";
         }

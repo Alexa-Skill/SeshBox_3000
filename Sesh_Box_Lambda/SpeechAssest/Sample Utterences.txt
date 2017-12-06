@@ -4,8 +4,6 @@ StartGameIntent to start {Games} for {Participents} people
 StartGameIntent to start {Games} {Version} version
 StartGameIntent to start {Games} with {Participents} people {Version} version
 StartGameIntent to start {Games} for {Participents} people {Version} version
-StartGameIntent to tell me more about {Games} 
-StartGameIntent to tell me more about {Games} {Version} version
 StartGameIntent what can I play with {Participents} people
 StartGameIntent what can we play with {Participents} people
 SeshBoxIntent to pick a random game
@@ -16,12 +14,22 @@ StartGameIntent to pick a random game for {Participents} people
 StartGameIntent to start a random game for {Participents} people
 StartGameIntent to pick a new game for {Participents} people
 StartGameIntent to start a new game for {Participents} people
+StartGameIntent {Games}
+StartGameIntent {Games} {Participents} {Version}
+StartGameIntent {Participents}
+StartGameIntent {Participents} {Version}
+StartGameIntent {Version}
 
 AMAZON.HelpIntent help
 AMAZON.HelpIntent I need help
-AMAZON.HelpIntent What do I say
-AMAZON.HelpIntent What is going on
 AMAZON.HelpIntent What
+
+TotallyLostIntent What can I do
+TotallyLostIntent What is going on
+TotallyLostIntent What do I say
+TotallyLostIntent I need help with {Games}
+TotallyLostIntent Tell me more about {Games} 
+TotallyLostIntent Tell me more about {Games} {Version} version
 
 AMAZON.StopIntent no
 AMAZON.StopIntent nope

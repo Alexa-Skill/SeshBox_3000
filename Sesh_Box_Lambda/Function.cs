@@ -12,8 +12,11 @@ namespace Sesh_Box_Lambda
 {
     public class Function
     {
+        //private static bool GAME_HELP = false;
+        //private static bool VERSION_HELP = false;
         // Name to start the skill
         public const string INVOCATION_NAME = "Sesh Box";
+
 
         PicoloRules newPicoloRules = new PicoloRules();
         string picoloRule;
@@ -45,17 +48,22 @@ namespace Sesh_Box_Lambda
                 {
                     case "SeshBoxIntent":
                         return Response(
-                        shouldEndSession: true,
+                        shouldEndSession: false,
                         outputSpeech: $"Start of the skill, and also a random game selection",
+                        repromptSpeech: $"If you're stuck, just say help",
+                        cardTitle: null,
                         cardText: $"Start of the skill, and also a random game selection",
                         gameSelected: null,
                         participents: null,
                         version: null
                         );
                     case "StartGameIntent":
+                        newPicoloRules.GameVersion = gameRequested;
                         return Response(
-                        shouldEndSession: true,
+                        shouldEndSession: false,
                         outputSpeech: $"Starting a specific Game",
+                        repromptSpeech: $"If you're stuck, just say help",
+                        cardTitle: $"Let's play!",
                         cardText: $"Starting a specific Game",
                         gameSelected: gameRequested,
                         participents: participentsRequested,
@@ -67,15 +75,31 @@ namespace Sesh_Box_Lambda
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"If you're stuck, then so am I",
+                        repromptSpeech: null,
+                        cardTitle: null,
                         cardText: $"Wellcome to Sesh Box 3000",
                         gameSelected: null,
                         participents: null,
                         version: null
                         );
+
+                    case "TotallyLostIntent":
+                        return Response(
+                        shouldEndSession: false,
+                        outputSpeech: $"Looks like you're totally lost. There are 3 game modes, Picolo, Truth or Dare, and Never Have I Ever",
+                        repromptSpeech: $"Ready to pick a game. Simply say " + INVOCATION_NAME + " start a game of Picolo",
+                        cardTitle: null,
+                        cardText: $"/n",
+                        gameSelected: null,
+                        participents: null,
+                        version: null);
+
                     case "AMAZON.CancelIntent":
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"woah, Hold up",
+                        repromptSpeech: $"If you're stuck, just say help",
+                        cardTitle: null,
                         cardText: $"Wellcome to Sesh Box 3000",
                         gameSelected: null,
                         participents: null,
@@ -86,6 +110,8 @@ namespace Sesh_Box_Lambda
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"Sure thing, I'll continue",
+                        repromptSpeech: $"If you're stuck, just say help",
+                        cardTitle: null,
                         cardText: $"Wellcome to Sesh Box 3000",
                         gameSelected: null,
                         participents: null,
@@ -96,6 +122,8 @@ namespace Sesh_Box_Lambda
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"Sure thing, moving to next card",
+                        repromptSpeech: $"If you're stuck, just say help",
+                        cardTitle: null,
                         cardText: $"Wellcome to Sesh Box 3000",
                         gameSelected: null,
                         participents: null,
@@ -107,6 +135,8 @@ namespace Sesh_Box_Lambda
                 return Response(
                     shouldEndSession: true,
                     outputSpeech: "What are you looking to do ?" + intentRequest.ToString(),
+                    repromptSpeech: $"If you're stuck, just say help",
+                    cardTitle: null,
                     cardText: "What are you looking to do ?",
                     gameSelected: null,
                     participents: null,
@@ -118,6 +148,8 @@ namespace Sesh_Box_Lambda
                 return Response(
                     shouldEndSession: true,
                     outputSpeech: $"Wellcome to Sesh Box 3000",
+                    repromptSpeech: $"If you're stuck, just say help",
+                    cardTitle: $"Welcome",
                     cardText: $"Wellcome to Sesh Box 3000",
                     gameSelected: null,
                     participents: null,
@@ -129,7 +161,9 @@ namespace Sesh_Box_Lambda
                 return Response(
                     shouldEndSession: true,
                     outputSpeech: $"I don't know how to resolve that intent",
-                    cardText: "I've no idea what's going on !?",
+                    repromptSpeech:$"If you're stuck, just say help",
+                    cardTitle: null,
+                    cardText: $"I've no idea what's going on !?",
                     gameSelected: null,
                     participents: null,
                     version: null
@@ -181,9 +215,8 @@ namespace Sesh_Box_Lambda
              }
              */
 
-        private SkillResponse Response(bool shouldEndSession, string outputSpeech, string cardText, string gameSelected, string participents, string version)
+        private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string version)
         {
-            string repromptSpeech = "If you're stuck, just say help";
             
             if (gameSelected != null)
             {
@@ -207,7 +240,7 @@ namespace Sesh_Box_Lambda
             }
             if (version != null)
             {
-                picoloRule = newPicoloRules.Rules(version);
+                picoloRule = newPicoloRules.Rules();
                 outputSpeech += " and playing the " + version + "version. First rule: " + picoloRule;
             }
             else if (version == null) {
@@ -216,12 +249,13 @@ namespace Sesh_Box_Lambda
                 // participents = to returned game value from new response
                 repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
             }
+            
             var response = new ResponseBody
             {
                 
                 ShouldEndSession = shouldEndSession,
                 OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech },
-                Card = new StandardCard { Title = "Welcome", Content = cardText },
+                Card = new StandardCard { Title = cardTitle, Content = cardText },
                 Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptSpeech } }
 
 
