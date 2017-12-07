@@ -62,8 +62,14 @@ namespace Sesh_Box_Lambda
                         shouldEndSession: false,
                         outputSpeech: $"Start of the skill, and also a random game selection",
                         repromptSpeech: $"If you're stuck, just say help",
-                        cardTitle: null,
-                        cardText: $"Start of the skill, and also a random game selection",
+                        cardTitle: $"Skill Menu",
+                        cardText: $"You've only just opened The Sesh-Box 3000 \n" +
+                        $"There are three games you can play \n " +
+                        $"Truth or Dare \n " +
+                        $"Never Have I ever \n " +
+                        $"Picolo \n\n" +
+                        $"Each game has a few diffent versions \n" +
+                        $"If at any point you're stuck, don't be afraid to ask for help",
                         gameSelected: null,
                         participents: null,
                         version: null
@@ -90,7 +96,7 @@ namespace Sesh_Box_Lambda
                         outputSpeech: $"If you're stuck, then so am I",
                         repromptSpeech: null,
                         cardTitle: $"Help section",
-                        cardText: $"Wellcome to Sesh Box 3000",
+                        cardText: $"Welcome to Sesh Box 3000",
                         gameSelected: GAME_QUESTED,
                         participents: PARTICIPENTS_REQUESTED,
                         version: VERSION_REQUESTED
@@ -102,7 +108,7 @@ namespace Sesh_Box_Lambda
                         outputSpeech: $"Looks like you're totally lost. There are 3 game modes, Picolo, Truth or Dare, and Never Have I Ever",
                         repromptSpeech: $"Ready to pick a game. Simply say " + INVOCATION_NAME + " start a game of Picolo",
                         cardTitle: null,
-                        cardText: $"/n",
+                        cardText: null,
                         gameSelected: null,
                         participents: null,
                         version: null);
@@ -117,7 +123,7 @@ namespace Sesh_Box_Lambda
                         outputSpeech: $"woah, Hold up",
                         repromptSpeech: $"If you're stuck, just say help",
                         cardTitle: null,
-                        cardText: $"Wellcome to Sesh Box 3000",
+                        cardText: null,
                         gameSelected: null,
                         participents: null,
                         version: null
@@ -129,7 +135,7 @@ namespace Sesh_Box_Lambda
                         outputSpeech: $"Sure thing, I'll continue",
                         repromptSpeech: $"If you're stuck, just say help",
                         cardTitle: null,
-                        cardText: $"Wellcome to Sesh Box 3000",
+                        cardText: null,
                         gameSelected: null,
                         participents: null,
                         version: null
@@ -141,7 +147,7 @@ namespace Sesh_Box_Lambda
                         outputSpeech: $"Sure thing, moving to next card",
                         repromptSpeech: $"If you're stuck, just say help",
                         cardTitle: null,
-                        cardText: $"Wellcome to Sesh Box 3000",
+                        cardText: null,
                         gameSelected: null,
                         participents: null,
                         version: null
@@ -154,7 +160,7 @@ namespace Sesh_Box_Lambda
                     outputSpeech: "What are you looking to do ?" + intentRequest.ToString(),
                     repromptSpeech: $"If you're stuck, just say help",
                     cardTitle: null,
-                    cardText: "What are you looking to do ?",
+                    cardText: null,
                     gameSelected: null,
                     participents: null,
                     version: null
@@ -164,7 +170,7 @@ namespace Sesh_Box_Lambda
             {
                 return Response(
                     shouldEndSession: false,
-                    outputSpeech: $"Wellcome to Sesh Box 3000",
+                    outputSpeech: $"Welcome to Sesh Box 3000",
                     repromptSpeech: $"If you're stuck, just say help",
                     cardTitle: $"Welcome",
                     cardText: $"Wellcome to Sesh Box 3000",
@@ -175,6 +181,7 @@ namespace Sesh_Box_Lambda
             }
             else
             {
+                context.Logger.LogLine($"The what you asked for was not understood or not part of the skill.");
                 return Response(
                     shouldEndSession: true,
                     outputSpeech: $"I don't know how to resolve that intent",
@@ -204,7 +211,7 @@ namespace Sesh_Box_Lambda
                  }
                  if (GAME_QUESTED == null)
                  {
-                     context.Logger.LogLine($"The game you asked for was not undersif tood or not part of the skill.");
+                     
                      return MakeSkillResponse(
                          outputSpeech: $"I'm sorry, but I didn't understand the game you were asking for. Please ask again.", 
                          shouldEndSession: false,
@@ -232,6 +239,18 @@ namespace Sesh_Box_Lambda
              }
              */
 
+        /// <summary>
+        /// All in one FXN to deal with creating an output speech method
+        /// </summary>
+        /// <param name="shouldEndSession"></param>
+        /// <param name="outputSpeech"></param>
+        /// <param name="repromptSpeech"></param>
+        /// <param name="cardTitle"></param>
+        /// <param name="cardText"></param>
+        /// <param name="gameSelected"></param>
+        /// <param name="participents"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
         private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string version)
         {
 
@@ -439,10 +458,4 @@ namespace Sesh_Box_Lambda
         }
     }
 
-    enum GameStatus{
-        NOTHINGSELECED,
-        GAMESELECTED,
-        PARTICPENTSSELECTED,
-        VERSIONSELECTED
-    };
 }
