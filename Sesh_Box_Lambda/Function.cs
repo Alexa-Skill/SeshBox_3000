@@ -15,8 +15,15 @@ namespace Sesh_Box_Lambda
         //private static bool GAME_HELP = false;
         //private static bool VERSION_HELP = false;
         // Name to start the skill
-        public const string INVOCATION_NAME = "Sesh Box";
+        private const string INVOCATION_NAME = "Sesh Box";
+        private static bool Help_requested = false;
+        private static bool Game_selecting= false;
+        private static bool Stop_requested = false;
+        private static bool Leave_requested = false;
 
+        string GAME_QUESTED = null;
+        string PARTICIPENTS_REQUESTED = null;
+        string VERSION_REQUESTED = null;
 
         PicoloRules newPicoloRules = new PicoloRules();
         string picoloRule;
@@ -37,16 +44,19 @@ namespace Sesh_Box_Lambda
             var requestType = input.GetRequestType();
             
 
+
+
             if (requestType == typeof(IntentRequest))
             {
                 var intentRequest = input.Request as IntentRequest;
-                var gameRequested = intentRequest?.Intent?.Slots["Games"].Value;
-                var participentsRequested = intentRequest?.Intent?.Slots["Participents"].Value;
-                var versionRequested = intentRequest?.Intent?.Slots["Version"].Value;
+                GAME_QUESTED = intentRequest?.Intent?.Slots["Games"].Value;
+                PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+                VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
 
                 switch (intentRequest.Intent.Name)
                 {
                     case "SeshBoxIntent":
+                        Game_selecting = true;
                         return Response(
                         shouldEndSession: false,
                         outputSpeech: $"Start of the skill, and also a random game selection",
@@ -58,29 +68,31 @@ namespace Sesh_Box_Lambda
                         version: null
                         );
                     case "StartGameIntent":
-                        newPicoloRules.GameVersion = gameRequested;
+                        newPicoloRules.GameVersion = GAME_QUESTED;
+                        Game_selecting = true;
                         return Response(
                         shouldEndSession: false,
                         outputSpeech: $"Starting a specific Game",
                         repromptSpeech: $"If you're stuck, just say help",
                         cardTitle: $"Let's play!",
                         cardText: $"Starting a specific Game",
-                        gameSelected: gameRequested,
-                        participents: participentsRequested,
-                        version: versionRequested
+                        gameSelected: GAME_QUESTED,
+                        participents: PARTICIPENTS_REQUESTED,
+                        version: VERSION_REQUESTED
                         );
 
 
                     case "AMAZON.HelpIntent":
+                        Help_requested = true;
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"If you're stuck, then so am I",
                         repromptSpeech: null,
-                        cardTitle: null,
+                        cardTitle: $"Help section",
                         cardText: $"Wellcome to Sesh Box 3000",
-                        gameSelected: null,
-                        participents: null,
-                        version: null
+                        gameSelected: GAME_QUESTED,
+                        participents: PARTICIPENTS_REQUESTED,
+                        version: VERSION_REQUESTED
                         );
 
                     case "TotallyLostIntent":
@@ -95,6 +107,10 @@ namespace Sesh_Box_Lambda
                         version: null);
 
                     case "AMAZON.CancelIntent":
+                        if (Stop_requested) {
+                            Leave_requested = true;
+                        }
+                        Stop_requested = true;
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"woah, Hold up",
@@ -146,7 +162,7 @@ namespace Sesh_Box_Lambda
             else if (requestType == typeof(Alexa.NET.Request.Type.LaunchRequest))
             {
                 return Response(
-                    shouldEndSession: true,
+                    shouldEndSession: false,
                     outputSpeech: $"Wellcome to Sesh Box 3000",
                     repromptSpeech: $"If you're stuck, just say help",
                     cardTitle: $"Welcome",
@@ -161,7 +177,7 @@ namespace Sesh_Box_Lambda
                 return Response(
                     shouldEndSession: true,
                     outputSpeech: $"I don't know how to resolve that intent",
-                    repromptSpeech:$"If you're stuck, just say help",
+                    repromptSpeech: $"If you're stuck, just say help",
                     cardTitle: null,
                     cardText: $"I've no idea what's going on !?",
                     gameSelected: null,
@@ -180,12 +196,12 @@ namespace Sesh_Box_Lambda
              if (requestType == typeof(IntentRequest))
              {
                  var intentRequest = input.Request as IntentRequest;
-                 var gameRequested = intentRequest?.Intent?.Slots["Games"].Value;
+                 var GAME_QUESTED = intentRequest?.Intent?.Slots["Games"].Value;
 
                  if (intentRequest.Equals("LaunchIntent")) {
                      return LaunchSkill(true,$"Welcom to the Sesh Box 3000", $"Welcom to the Sesh Box 3000");
                  }
-                 if (gameRequested == null)
+                 if (GAME_QUESTED == null)
                  {
                      context.Logger.LogLine($"The game you asked for was not undersif tood or not part of the skill.");
                      return MakeSkillResponse(
@@ -197,9 +213,9 @@ namespace Sesh_Box_Lambda
                  }
 
                  return MakeSkillResponse(
-                         outputSpeech: $"You'd like more information about {gameRequested}",
+                         outputSpeech: $"You'd like more information about {GAME_QUESTED}",
                          shouldEndSession: true,
-                         gameSelected: gameRequested.ToString(),
+                         gameSelected: GAME_QUESTED.ToString(),
                          repromptText: null
                          );
 
@@ -217,48 +233,93 @@ namespace Sesh_Box_Lambda
 
         private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string version)
         {
+
+            if (Game_selecting) {
+                if (gameSelected != null)
+                {
+                    outputSpeech = "So, playing " + gameSelected;
+                }
+                else if (gameSelected == null)
+                {
+                    outputSpeech = "First let's see what game you'd like to play ?";
+                    shouldEndSession = false;
+                    // gameSelected = to returned game value from new response
+                    repromptSpeech = "If you're stuck just ask, what games can I play";
+                }
+                if (participents != null)
+                {
+                    outputSpeech += " with " + Int32.Parse(participents) + " players";
+                }
+                else if (participents == null)
+                {
+                    outputSpeech += "So then, how many people are playing";
+                    shouldEndSession = false;
+                    // participents = to returned game value from new response
+                    repromptSpeech = "Just say how many people are playing.";
+                }
+                if (version != null)
+                {
+                    picoloRule = newPicoloRules.Rules();
+                    outputSpeech += " and playing the " + version + "version. First rule: " + picoloRule;
+                }
+                else if (version == null)
+                {
+                    outputSpeech += "Now, what version of the game do you wanna play";
+                    shouldEndSession = false;
+                    // participents = to returned game value from new response
+                    repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
+                }
+            }
+
+            if (Help_requested) {
+                if (gameSelected != null)
+                {
+                    outputSpeech += "The Games availble are, Truth or Dare, Never Have I Ever, or Picolo";
+                    repromptSpeech += "If you need further help, you can ask about each game individualy";
+                }
+                else if (participents != null)
+                {
+                    outputSpeech += "I need to know who's playing.Please say each name slowly and clearly";
+                    repromptSpeech += "This isn't that hard. Please let me know who's playing";
+                }
+                else if (version != null) {
+                    outputSpeech += "The versions availible to you are, Getting Started, Getting Silly, War, Caliente"; // TODO Pull this from a corresponding list of versions 
+                    repromptSpeech += "Still not sure. I'd sugested Caliente"; //TODO select a random game
+                }
+            }
+
             
-            if (gameSelected != null)
-            {
-                outputSpeech = "So, playing " + gameSelected;
+            if (Stop_requested) {
+                repromptSpeech += "Just asking one last Time, or else I'll just go back now.";
+                if (gameSelected != null)
+                {
+                    outputSpeech += "Are you sure you want to quit back to the main menu?";
+                    GAME_QUESTED = null;
+                }
+                else if (participents != null)
+                {
+                    outputSpeech += "Are you sure you want to go back to the game selection";
+                    PARTICIPENTS_REQUESTED = GAME_QUESTED = null;
+                }
+                else if (version != null)
+                {
+                    outputSpeech += "Are you sure you want to go back and re-enter the participents' names ?"; 
+                    VERSION_REQUESTED = PARTICIPENTS_REQUESTED = null;
+                }
+                // nesting this if statement to check if the user 
+                // Want to fully leave the app
+                if (Leave_requested) {
+                    outputSpeech += "Are you sure you want to quite the skill";
+                    repromptSpeech += "Just checking one last time. You sure you wnat to leave";
+                }
             }
-            else if (gameSelected == null) {
-                outputSpeech = "First let's see what game you'd like to play ?";
-                shouldEndSession = false;
-                // gameSelected = to returned game value from new response
-                repromptSpeech = "If you're stuck just ask, what games can I play";
-            }
-            if (participents != null)
-            {
-                outputSpeech += " with " + Int32.Parse(participents) + " players";
-            }
-            else if (participents == null) {
-                outputSpeech += "So then, how many people are playing";
-                shouldEndSession = false;
-                // participents = to returned game value from new response
-                repromptSpeech = "Just say how many people are playing.";
-            }
-            if (version != null)
-            {
-                picoloRule = newPicoloRules.Rules();
-                outputSpeech += " and playing the " + version + "version. First rule: " + picoloRule;
-            }
-            else if (version == null) {
-                outputSpeech += "Now, what version of the game do you wanna play";
-                shouldEndSession = false;
-                // participents = to returned game value from new response
-                repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
-            }
-            
+
             var response = new ResponseBody
             {
-                
                 ShouldEndSession = shouldEndSession,
                 OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech },
                 Card = new StandardCard { Title = cardTitle, Content = cardText },
                 Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptSpeech } }
-
-
             };
 
             var skillResponse = new SkillResponse
@@ -266,8 +327,8 @@ namespace Sesh_Box_Lambda
                 Response = response,
                 Version = "1.0"
             };
-            
 
+            Help_requested = false;
             return skillResponse;
         }
 
@@ -362,4 +423,11 @@ namespace Sesh_Box_Lambda
             return skillResponse;
         }
     }
+
+    enum GameStatus{
+        NOTHINGSELECED,
+        GAMESELECTED,
+        PARTICPENTSSELECTED,
+        VERSIONSELECTED
+    };
 }
