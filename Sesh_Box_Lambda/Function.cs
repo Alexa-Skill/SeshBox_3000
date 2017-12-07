@@ -20,6 +20,7 @@ namespace Sesh_Box_Lambda
         private static bool Game_selecting= false;
         private static bool Stop_requested = false;
         private static bool Leave_requested = false;
+        private static bool Confirm_requested = false;
 
         string GAME_QUESTED = null;
         string PARTICIPENTS_REQUESTED = null;
@@ -241,6 +242,7 @@ namespace Sesh_Box_Lambda
                 }
                 else if (gameSelected == null)
                 {
+                    // 
                     outputSpeech = "First let's see what game you'd like to play ?";
                     shouldEndSession = false;
                     // gameSelected = to returned game value from new response
@@ -287,7 +289,6 @@ namespace Sesh_Box_Lambda
                     repromptSpeech += "Still not sure. I'd sugested Caliente"; //TODO select a random game
                 }
             }
-
             
             if (Stop_requested) {
                 repromptSpeech += "Just asking one last Time, or else I'll just go back now.";
@@ -311,6 +312,20 @@ namespace Sesh_Box_Lambda
                 if (Leave_requested) {
                     outputSpeech += "Are you sure you want to quite the skill";
                     repromptSpeech += "Just checking one last time. You sure you wnat to leave";
+                }
+            }
+
+            if (Confirm_requested) {
+                // Here all the yes/no checked will be resolved
+                if (Help_requested)
+                {
+
+                }
+                if (Stop_requested) {
+                    if (Leave_requested) {
+                        outputSpeech += "Okay then. Goodbye, thank you.";
+                        shouldEndSession = true; //Leave the skill
+                    }
                 }
             }
 
