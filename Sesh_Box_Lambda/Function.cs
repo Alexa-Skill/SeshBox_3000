@@ -21,6 +21,7 @@ namespace Sesh_Box_Lambda
         private static bool Stop_requested = false;
         private static bool Leave_requested = false;
         private static bool Confirm_requested = false;
+        private static bool Next_requested = false;
 
         string GAME_QUESTED = null;
         string PARTICIPENTS_REQUESTED = null;
@@ -142,6 +143,7 @@ namespace Sesh_Box_Lambda
                         );
 
                     case "NextIntent":
+                        Next_requested = true;
                         return Response(
                         shouldEndSession: true,
                         outputSpeech: $"Sure thing, moving to next card",
@@ -261,7 +263,6 @@ namespace Sesh_Box_Lambda
                 }
                 else if (gameSelected == null)
                 {
-                    // 
                     outputSpeech = "First let's see what game you'd like to play ?";
                     shouldEndSession = false;
                     // gameSelected = to returned game value from new response
@@ -282,6 +283,7 @@ namespace Sesh_Box_Lambda
                 {
                     picoloRule = newPicoloRules.Rules();
                     outputSpeech += " and playing the " + version + "version. First rule: " + picoloRule;
+                    cardText += picoloRule;
                 }
                 else if (version == null)
                 {
@@ -346,6 +348,13 @@ namespace Sesh_Box_Lambda
                         shouldEndSession = true; //Leave the skill
                     }
                 }
+            }
+
+            if (Next_requested) {
+                picoloRule = newPicoloRules.Rules();
+                outputSpeech += "Next Rule is " + picoloRule;
+                cardTitle += gameSelected + " : " + version;
+                cardText += "The next rules is:\n" + picoloRule;
             }
 
             var response = new ResponseBody
