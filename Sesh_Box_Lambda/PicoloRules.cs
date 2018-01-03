@@ -7,7 +7,7 @@ namespace Sesh_Box_Lambda
 {
     class PicoloRules
     {
-        string gameVersion;
+        string gameVersion = "getting started";
 
         string randomParticipentName = "Ciaran";
         int beverageConsumption = 5;

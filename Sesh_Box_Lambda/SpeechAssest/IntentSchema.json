@@ -22,7 +22,111 @@
             "intent": "ConfirmIntent"
         },
         {
+            "intent": "TotallyLostIntent"
+        },
+        {
+            "intent": "TotallyLostGameIntent",
+            "slots": [
+                {
+                    "name": "Games",
+                    "type": "LIST_OF_GAMES"
+                }
+            ]
+        },
+        {
+            "intent": "TotallyLostVersionIntent",
+            "slots": [
+                {
+                    "name": "Version",
+                    "type": "PICOLO_VERSIONS"
+                }
+            ]
+        },
+        {
+            "intent": "TotallyLostParticipentsIntent",
+            "slots": [
+                {
+                    "name": "Participents",
+                    "type": "AMAZON.NUMBER"
+                }
+            ]
+        },
+        {
+            "intent": "ParticipentsIntent",
+            "slots": [
+                {
+                    "name": "Participents",
+                    "type": "AMAZON.NUMBER"
+                }
+            ]
+        },
+        {
+            "intent": "NamesIntent",
+            "slots": [
+                {
+                    "name": "Persons",
+                    "type": "AMAZON.GB_FIRST_NAME"
+                }
+            ]
+        },
+        {
+            "intent": "VersionIntent",
+            "slots": [
+                {
+                    "name": "Version",
+                    "type": "PICOLO_VERSIONS"
+                }
+            ]
+        },
+        {
+            "intent": "SeshBoxIntent"
+        },
+        {
             "intent": "StartGameIntent",
+            "slots": [
+                {
+                    "name": "Games",
+                    "type": "LIST_OF_GAMES"
+                }
+            ]
+        },
+        {
+            "intent": "StartParticipentsIntent",
+            "slots": [
+                {
+                    "name": "Participents",
+                    "type": "AMAZON.NUMBER"
+                }
+            ]
+        },
+        {
+            "intent": "StartGameVersionIntent",
+            "slots": [
+                {
+                    "name": "Games",
+                    "type": "LIST_OF_GAMES"
+                },
+                {
+                    "name": "Version",
+                    "type": "PICOLO_VERSIONS"
+                }
+            ]
+        },
+        {
+            "intent": "StartGameParticipentsIntent",
+            "slots": [
+                {
+                    "name": "Games",
+                    "type": "LIST_OF_GAMES"
+                },
+                {
+                    "name": "Participents",
+                    "type": "AMAZON.NUMBER"
+                }
+            ]
+        },
+        {
+            "intent": "StartGameSpecificIntent",
             "slots": [
                 {
                     "name": "Games",

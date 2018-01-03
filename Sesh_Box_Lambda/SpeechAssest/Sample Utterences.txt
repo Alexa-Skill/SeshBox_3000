@@ -1,24 +1,33 @@
-﻿StartGameIntent to start {Games}
-StartGameIntent to start {Games} with {Participents} people
-StartGameIntent to start {Games} for {Participents} people
-StartGameIntent to start {Games} {Version} version
-StartGameIntent to start {Games} with {Participents} people {Version} version
-StartGameIntent to start {Games} for {Participents} people {Version} version
-StartGameIntent what can I play with {Participents} people
-StartGameIntent what can we play with {Participents} people
+﻿StartGameIntent {Games}
+StartGameIntent to start {Games}
+StartGameIntent start {Games}
+StartGameIntent play {Games}
+
+StartGameVersionIntent to start {Games} {Version} version
+StartGameVersionIntent to play {Games} {Version} version
+
+StartGameParticipentsIntent to start {Games} for {Participents} people
+StartGameParticipentsIntent to start {Games} with {Participents} people
+
+StartParticipentsIntent to pick a random game for {Participents} people
+StartParticipentsIntent to start a random game for {Participents} people
+StartParticipentsIntent to pick a new game for {Participents} people
+StartParticipentsIntent to start a new game for {Participents} people
+
+StartGameSpecificIntent {Games} {Participents} {Version}
+StartGameSpecificIntent to start {Games} with {Participents} people {Version} version
+StartGameSpecificIntent to start {Games} for {Participents} people {Version} version
+
 SeshBoxIntent to pick a random game
 SeshBoxIntent to start a random game
 SeshBoxIntent to pick a new game
 SeshBoxIntent to start a new game
-StartGameIntent to pick a random game for {Participents} people
-StartGameIntent to start a random game for {Participents} people
-StartGameIntent to pick a new game for {Participents} people
-StartGameIntent to start a new game for {Participents} people
-StartGameIntent {Games}
-StartGameIntent {Games} {Participents} {Version}
-StartGameIntent {Participents}
-StartGameIntent {Participents} {Version}
-StartGameIntent {Version}
+
+ParticipentsIntent {Participents} people 
+ParticipentsIntent there is {Participents} people 
+ParticipentsIntent we have {Participents} people 
+
+VersionIntent {Version} version
 
 AMAZON.HelpIntent help
 AMAZON.HelpIntent I need help
@@ -27,9 +36,20 @@ AMAZON.HelpIntent What
 TotallyLostIntent What can I do
 TotallyLostIntent What is going on
 TotallyLostIntent What do I say
-TotallyLostIntent I need help with {Games}
-TotallyLostIntent Tell me more about {Games} 
-TotallyLostIntent Tell me more about {Games} {Version} version
+
+TotallyLostGameIntent I need help with {Games}
+TotallyLostGameIntent Tell me more about {Games} 
+TotallyLostGameIntent What is {Games}
+
+TotallyLostVersionIntent I need help with {Version}
+TotallyLostVersionIntent I need help with {Version} version
+TotallyLostVersionIntent Tell me more about {Version}
+TotallyLostVersionIntent Tell me more about {Version} version
+
+TotallyLostParticipentsIntent what can I play with {Participents} people
+TotallyLostParticipentsIntent what can we play with {Participents} people
+TotallyLostParticipentsIntent what can I do with {Participents} people
+TotallyLostParticipentsIntent what can we do with {Participents} people
 
 AMAZON.StopIntent no
 AMAZON.StopIntent nope
@@ -51,3 +71,19 @@ ConfirmIntent I want to know more about that
 ConfirmIntent Yes want to play that
 ConfirmIntent Yes want to hear about that
 ConfirmIntent Yes want to know more about that
+
+NamesIntent {Persons}
+NamesIntent {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}

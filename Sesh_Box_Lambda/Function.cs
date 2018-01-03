@@ -12,23 +12,22 @@ namespace Sesh_Box_Lambda
 {
     public class Function
     {
-        //private static bool GAME_HELP = false;
-        //private static bool VERSION_HELP = false;
         // Name to start the skill
         private const string INVOCATION_NAME = "Sesh Box";
         private static bool Help_requested = false;
+        private static bool Totally_Lost = false;
         private static bool Game_selecting= false;
         private static bool Stop_requested = false;
         private static bool Leave_requested = false;
         private static bool Confirm_requested = false;
         private static bool Next_requested = false;
 
-        string GAME_QUESTED = null;
+        string GAME_REQUESTED = null;
         string PARTICIPENTS_REQUESTED = null;
         string VERSION_REQUESTED = null;
 
-        PicoloRules newPicoloRules = new PicoloRules();
-        string picoloRule;
+        //PicoloRules newPicoloRules = new PicoloRules();
+        //string picoloRule;
 
         /// <summary>
         /// Main FXN handler for the skill
@@ -44,76 +43,94 @@ namespace Sesh_Box_Lambda
         {
             // check what type of a request it is like an IntentRequest or a LaunchRequest
             var requestType = input.GetRequestType();
-            
-
-
-
             if (requestType == typeof(IntentRequest))
             {
                 var intentRequest = input.Request as IntentRequest;
-                GAME_QUESTED = intentRequest?.Intent?.Slots["Games"].Value;
-                PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
-                VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+
+                //GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
+                //PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+                //VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
 
                 switch (intentRequest.Intent.Name)
                 {
                     case "SeshBoxIntent":
-                        Game_selecting = true;
+                        context.Logger.LogLine($"I'm in the SeshBoxIntent section");
                         return Response(
                         shouldEndSession: false,
-                        outputSpeech: $"Start of the skill, and also a random game selection",
+                        outputSpeech: $"Welcome to Sesh Box 3000",
                         repromptSpeech: $"If you're stuck, just say help",
                         cardTitle: $"Skill Menu",
-                        cardText: $"You've only just opened The Sesh-Box 3000 \n" +
-                        $"There are three games you can play \n " +
+                        cardText: $"Wellcome to The Sesh-Box 3000 \n" +
+                        $"There are three games you can play: \n " +
                         $"Truth or Dare \n " +
                         $"Never Have I ever \n " +
                         $"Picolo \n\n" +
                         $"Each game has a few diffent versions \n" +
-                        $"If at any point you're stuck, don't be afraid to ask for help",
+                        $"Don't be afraid to ask for help",
                         gameSelected: null,
                         participents: null,
                         version: null
                         );
+                        
                     case "StartGameIntent":
-                        newPicoloRules.GameVersion = GAME_QUESTED;
+                        //newPicoloRules.GameVersion = GAME_QUESTED;
+                        GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
                         Game_selecting = true;
                         return Response(
                         shouldEndSession: false,
-                        outputSpeech: $"Starting a specific Game",
+                        outputSpeech: $"Starting a game of " + GAME_REQUESTED,
                         repromptSpeech: $"If you're stuck, just say help",
                         cardTitle: $"Let's play!",
-                        cardText: $"Starting a specific Game",
-                        gameSelected: GAME_QUESTED,
-                        participents: PARTICIPENTS_REQUESTED,
-                        version: VERSION_REQUESTED
+                        cardText: $"Starting a " + GAME_REQUESTED,
+                        gameSelected: GAME_REQUESTED,
+                        participents: null,
+                        version: null
                         );
 
+                    case "ParticipentsIntent":
+                        PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+                        return Response(
+                            shouldEndSession: false,
+                            outputSpeech: $"Got it thanks !" + PARTICIPENTS_REQUESTED + " people are playing",
+                            //ssmlOutputSpeech: $"<speak>Okay, so " + PARTICIPENTS_REQUESTED + " are playing <break time = \"3s\" />So what are there names ?</ speak > ",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"ParticipentsIntent",
+                            cardText: $"ParticipentsIntent",
+                            gameSelected: null,
+                            participents: null,
+                            version: null
+                            );
+                    
 
+                  /*
                     case "AMAZON.HelpIntent":
+                        context.Logger.LogLine($"I'm in the HelpIntent section");
                         Help_requested = true;
                         return Response(
-                        shouldEndSession: true,
-                        outputSpeech: $"If you're stuck, then so am I",
+                        shouldEndSession: false,
+                        outputSpeech: null,
                         repromptSpeech: null,
                         cardTitle: $"Help section",
-                        cardText: $"Welcome to Sesh Box 3000",
-                        gameSelected: GAME_QUESTED,
-                        participents: PARTICIPENTS_REQUESTED,
-                        version: VERSION_REQUESTED
-                        );
-
-                    case "TotallyLostIntent":
-                        return Response(
-                        shouldEndSession: false,
-                        outputSpeech: $"Looks like you're totally lost. There are 3 game modes, Picolo, Truth or Dare, and Never Have I Ever",
-                        repromptSpeech: $"Ready to pick a game. Simply say " + INVOCATION_NAME + " start a game of Picolo",
-                        cardTitle: null,
-                        cardText: null,
+                        cardText: $"Here will be all the help text",
                         gameSelected: null,
                         participents: null,
-                        version: null);
-
+                        version: null
+                        );
+                    
+                    case "TotallyLostIntent":
+                        context.Logger.LogLine($"I'm in the TotallyLostIntent section");
+                        Totally_Lost = true;
+                        return Response(
+                        shouldEndSession: false,
+                        outputSpeech: $"Looks like you're totally lost !",
+                        repromptSpeech: $"You still there ?",
+                        cardTitle: $"Totally Lost",
+                        cardText: $"Text will be added",
+                        gameSelected: GAME,
+                        participents: PARTICIPENTS,
+                        version: null
+                        );
+                    /*
                     case "AMAZON.CancelIntent":
                         if (Stop_requested) {
                             Leave_requested = true;
@@ -154,7 +171,7 @@ namespace Sesh_Box_Lambda
                         participents: null,
                         version: null
                         );
-
+                        */
                 }
 
                 return Response(
@@ -183,12 +200,12 @@ namespace Sesh_Box_Lambda
             }
             else
             {
-                context.Logger.LogLine($"The what you asked for was not understood or not part of the skill.");
+                context.Logger.LogLine($"The thing what you asked for was not understood or not part of the skill.");
                 return Response(
                     shouldEndSession: true,
                     outputSpeech: $"I don't know how to resolve that intent",
                     repromptSpeech: $"If you're stuck, just say help",
-                    cardTitle: null,
+                    cardTitle: $"Whuuut",
                     cardText: $"I've no idea what's going on !?",
                     gameSelected: null,
                     participents: null,
@@ -255,8 +272,14 @@ namespace Sesh_Box_Lambda
         /// <returns></returns>
         private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string version)
         {
+            
 
+            /// Voice Testing 
+            /// Section 1: Yes. But still asks for section 2&3 at the same time 
+            /// Section 2: No
+            /// Section 3: Yed
             if (Game_selecting) {
+                Game_selecting = false;
                 if (gameSelected != null)
                 {
                     outputSpeech = "So, playing " + gameSelected;
@@ -279,6 +302,7 @@ namespace Sesh_Box_Lambda
                     // participents = to returned game value from new response
                     repromptSpeech = "Just say how many people are playing.";
                 }
+                /*
                 if (version != null)
                 {
                     picoloRule = newPicoloRules.Rules();
@@ -291,26 +315,74 @@ namespace Sesh_Box_Lambda
                     shouldEndSession = false;
                     // participents = to returned game value from new response
                     repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
-                }
+                }*/
             }
 
+            /// Voice Testing
+            /// Failed
             if (Help_requested) {
-                if (gameSelected != null)
+                Help_requested = false; // Close off the method gettting called again 
+                if (gameSelected == null)
                 {
                     outputSpeech += "The Games availble are, Truth or Dare, Never Have I Ever, or Picolo";
                     repromptSpeech += "If you need further help, you can ask about each game individualy";
                 }
-                else if (participents != null)
+                /*
+                else if (participents == null)
                 {
                     outputSpeech += "I need to know who's playing.Please say each name slowly and clearly";
                     repromptSpeech += "This isn't that hard. Please let me know who's playing";
                 }
-                else if (version != null) {
+                else if (version == null)
+                {
                     outputSpeech += "The versions availible to you are, Getting Started, Getting Silly, War, Caliente"; // TODO Pull this from a corresponding list of versions 
                     repromptSpeech += "Still not sure. I'd sugested Caliente"; //TODO select a random game
                 }
+                */
+                else {
+                    outputSpeech = "Help Intent";
+                    repromptSpeech = "Help Intent";
+                }
             }
-            
+
+            if (Totally_Lost) {
+                Totally_Lost = false; // Close off the method gettting called again 
+                if (gameSelected != null)
+                {
+                    
+                    switch (gameSelected)
+                    {
+                        case "truth or are":
+                            outputSpeech += "You want more help with Truth or dare ?";
+                            break;
+                        case "never have I ever":
+                            outputSpeech += "You want more help with Never Have I Ever ?";
+                            break;
+                        case "picolo":
+                            outputSpeech += "You want more help with Picolo ?";
+                            break;
+                    }
+                }
+                
+                else if (participents != null)
+                {
+                    outputSpeech += "You want more help with the participents ?";
+                }
+                /*
+                else if (version == null)
+                {
+
+                }
+                */
+                else
+                {
+                    outputSpeech += "Let's just take a second a figure out what you want to do.";
+                }
+            }
+            /*
+            /// Voice Testing
+            /// Failed
+            /// 
             if (Stop_requested) {
                 repromptSpeech += "Just asking one last Time, or else I'll just go back now.";
                 if (gameSelected != null)
@@ -335,7 +407,10 @@ namespace Sesh_Box_Lambda
                     repromptSpeech += "Just checking one last time. You sure you wnat to leave";
                 }
             }
-
+            */
+            /// Voice Testing
+            /// Failed
+            /// 
             if (Confirm_requested) {
                 // Here all the yes/no checked will be resolved
                 if (Help_requested)
@@ -349,14 +424,18 @@ namespace Sesh_Box_Lambda
                     }
                 }
             }
-
+            /*
+            /// Voice Testing
+            /// Failed
+            /// 
             if (Next_requested) {
                 picoloRule = newPicoloRules.Rules();
                 outputSpeech += "Next Rule is " + picoloRule;
                 cardTitle += gameSelected + " : " + version;
                 cardText += "The next rules is:\n" + picoloRule;
-            }
+            }*/
 
+            
             var response = new ResponseBody
             {
                 ShouldEndSession = shouldEndSession,
@@ -370,93 +449,17 @@ namespace Sesh_Box_Lambda
                 Response = response,
                 Version = "1.0"
             };
-
-            Help_requested = false;
             return skillResponse;
-        }
+        } // End of Standard Skill Response
 
-        private string getGameVerison() {
-            string gameversion = "";
-            return gameversion;
-        }
-
-        private SkillResponse FurtherResponse(bool shouldEndSession, string outputSpeech, string cardText) {
-            var response = new ResponseBody
-            {
-                ShouldEndSession = shouldEndSession,
-                OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech },
-                Card = new StandardCard { Title = "Welcome", Content = cardText }
-
-            };
-
-            var skillResponse = new SkillResponse
-            {
-                Response = response,
-                Version = "1.0"
-            };
-
-            return skillResponse;
-        }
-
-        private SkillResponse GameResponse(bool shouldEndSession, string outputSpeech, string cardText, int round)
+        private SkillResponse SSMLResponse(bool shouldEndSession, string ssmlOutputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string version)
         {
             var response = new ResponseBody
             {
                 ShouldEndSession = shouldEndSession,
-                OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech },
-                Card = new StandardCard { Title = "Welcome", Content = cardText }
-
+                OutputSpeech = new SsmlOutputSpeech {Ssml = ssmlOutputSpeech },
+                Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptSpeech } }
             };
-
-            var skillResponse = new SkillResponse
-            {
-                Response = response,
-                Version = "1.0"
-            };
-
-            return skillResponse;
-        }
-
-
-        /// <summary>
-        /// FXN to deal with creating an output speech method
-        /// </summary>
-        /// <param name="outputSpeech"></param>
-        /// <param name="shouldEndSession"></param>
-        /// <param name="repromptText"></param>
-        /// <returns></returns>
-        private SkillResponse MakeSkillResponse(
-            string outputSpeech,
-            bool shouldEndSession,
-            string gameSelected,
-            string repromptText)
-        {
-            if (outputSpeech == null)
-            {
-                throw new System.ArgumentNullException(nameof(outputSpeech));
-            }
-
-            if (string.IsNullOrWhiteSpace(gameSelected))
-            {
-                throw new System.ArgumentException("message", nameof(gameSelected));
-            }
-
-            var response = new ResponseBody
-            {
-                ShouldEndSession = shouldEndSession,
-                OutputSpeech = new PlainTextOutputSpeech { Text = outputSpeech },
-                Card = new StandardCard { Title = gameSelected, Content = "Here listen to what alexa has to say about " + gameSelected.ToString() }
-            };
-
-            if (repromptText == null)
-            {
-                response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = "Just say, tell me about " + gameSelected.ToString() + ". To exit, say, exit." } };
-            }
-            else if (repromptText != null)
-            {
-                response.Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptText } };
-            }
-
 
             var skillResponse = new SkillResponse
             {
@@ -465,6 +468,7 @@ namespace Sesh_Box_Lambda
             };
             return skillResponse;
         }
-    }
 
-}
+    } // End of Class
+
+} // End of Namespace
