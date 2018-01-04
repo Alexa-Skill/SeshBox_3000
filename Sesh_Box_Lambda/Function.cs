@@ -3,6 +3,7 @@ using Alexa.NET.Response;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using System;
+using System.Collections.Generic;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -25,6 +26,9 @@ namespace Sesh_Box_Lambda
         string GAME_REQUESTED = null;
         string PARTICIPENTS_REQUESTED = null;
         string VERSION_REQUESTED = null;
+        string PEOPLE_REQUESTED = null;
+        string PERSON_REQUESTED = null;
+        string[] names = null;
 
         //PicoloRules newPicoloRules = new PicoloRules();
         //string picoloRule;
@@ -46,7 +50,7 @@ namespace Sesh_Box_Lambda
             if (requestType == typeof(IntentRequest))
             {
                 var intentRequest = input.Request as IntentRequest;
-
+                
                 //GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
                 //PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
                 //VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
@@ -77,21 +81,70 @@ namespace Sesh_Box_Lambda
                         GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
                         Game_selecting = true;
                         return Response(
-                        shouldEndSession: false,
-                        outputSpeech: $"Starting a game of " + GAME_REQUESTED,
-                        repromptSpeech: $"If you're stuck, just say help",
-                        cardTitle: $"Let's play!",
-                        cardText: $"Starting a " + GAME_REQUESTED,
-                        gameSelected: GAME_REQUESTED,
-                        participents: null,
-                        version: null
-                        );
+                            shouldEndSession: false,
+                            outputSpeech: $"Starting a game of " + GAME_REQUESTED,
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"Let's play!",
+                            cardText: $"Starting a " + GAME_REQUESTED,
+                            gameSelected: GAME_REQUESTED,
+                            participents: null,
+                            version: null
+                            );
+
+                    case "StartGameVersionIntent":
+                        //newPicoloRules.GameVersion = GAME_QUESTED;
+                        GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
+                        VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+                        Game_selecting = true;
+                        return Response(
+                            shouldEndSession: false,
+                            outputSpeech: $"Starting a game of " + GAME_REQUESTED + " " + VERSION_REQUESTED + " version",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"Let's play!",
+                            cardText: $"Starting a " + GAME_REQUESTED + " " + VERSION_REQUESTED + " version",
+                            gameSelected: GAME_REQUESTED,
+                            participents: null,
+                            version: VERSION_REQUESTED
+                            );
+
+                    case "StartGameParticipentsIntent":
+                        //newPicoloRules.GameVersion = GAME_QUESTED;
+                        GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
+                        PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+                        Game_selecting = true;
+                        return Response(
+                            shouldEndSession: false,
+                            outputSpeech: $"Starting a game of " + GAME_REQUESTED + " with " + PARTICIPENTS_REQUESTED + " people,",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"Let's play!",
+                            cardText: $"Starting a " + GAME_REQUESTED + " with " + PARTICIPENTS_REQUESTED + " people,",
+                            gameSelected: GAME_REQUESTED,
+                            participents: PARTICIPENTS_REQUESTED,
+                            version: null
+                            );
+
+                    case "StartGameSpecificIntent":
+                        //newPicoloRules.GameVersion = GAME_QUESTED;
+                        GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
+                        PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+                        VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+                        Game_selecting = true;
+                        return Response(
+                            shouldEndSession: false,
+                            outputSpeech: $"Starting a game of " + GAME_REQUESTED + ", " + VERSION_REQUESTED + " version, with " + PARTICIPENTS_REQUESTED + " people,",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"Let's play!",
+                            cardText: $"Starting a " + GAME_REQUESTED + ", " + VERSION_REQUESTED + " version, with " + PARTICIPENTS_REQUESTED + " people,",
+                            gameSelected: GAME_REQUESTED,
+                            participents: PARTICIPENTS_REQUESTED,
+                            version: VERSION_REQUESTED
+                            );
 
                     case "ParticipentsIntent":
                         PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
                         return Response(
                             shouldEndSession: false,
-                            outputSpeech: $"Got it thanks !" + PARTICIPENTS_REQUESTED + " people are playing",
+                            outputSpeech: $"Got it " + PARTICIPENTS_REQUESTED.ToString() + " people are playing, who are they",//Move this last bit to the response builder
                             //ssmlOutputSpeech: $"<speak>Okay, so " + PARTICIPENTS_REQUESTED + " are playing <break time = \"3s\" />So what are there names ?</ speak > ",
                             repromptSpeech: $"If you're stuck, just say help",
                             cardTitle: $"ParticipentsIntent",
@@ -100,78 +153,105 @@ namespace Sesh_Box_Lambda
                             participents: null,
                             version: null
                             );
-                    
 
-                  /*
-                    case "AMAZON.HelpIntent":
-                        context.Logger.LogLine($"I'm in the HelpIntent section");
-                        Help_requested = true;
-                        return Response(
-                        shouldEndSession: false,
-                        outputSpeech: null,
-                        repromptSpeech: null,
-                        cardTitle: $"Help section",
-                        cardText: $"Here will be all the help text",
-                        gameSelected: null,
-                        participents: null,
-                        version: null
-                        );
-                    
-                    case "TotallyLostIntent":
-                        context.Logger.LogLine($"I'm in the TotallyLostIntent section");
-                        Totally_Lost = true;
-                        return Response(
-                        shouldEndSession: false,
-                        outputSpeech: $"Looks like you're totally lost !",
-                        repromptSpeech: $"You still there ?",
-                        cardTitle: $"Totally Lost",
-                        cardText: $"Text will be added",
-                        gameSelected: GAME,
-                        participents: PARTICIPENTS,
-                        version: null
-                        );
-                    /*
-                    case "AMAZON.CancelIntent":
-                        if (Stop_requested) {
-                            Leave_requested = true;
+                    case "NamesIntent":
+                        PERSON_REQUESTED = intentRequest?.Intent?.Slots["Persons"].Value;
+                        names = PERSON_REQUESTED.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                        string outspeach = $"Got it, ";
+                        for (int i = 0; i < names.Length; i++)
+                        {
+                            if (i == names.Length - 1) {
+                                outspeach += "and " + names[i] + " are playing";
+                            }
+                            else
+                            {
+                                outspeach += names[i] + ", ";
+                            }
                         }
-                        Stop_requested = true;
+                       
                         return Response(
-                        shouldEndSession: true,
-                        outputSpeech: $"woah, Hold up",
-                        repromptSpeech: $"If you're stuck, just say help",
-                        cardTitle: null,
-                        cardText: null,
-                        gameSelected: null,
-                        participents: null,
-                        version: null
-                        );
+                            shouldEndSession: false,
+                            outputSpeech: outspeach,
+                            //ssmlOutputSpeech: $"<speak>Okay, so " + PARTICIPENTS_REQUESTED + " are playing <break time = \"3s\" />So what are there names ?</ speak > ",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"ParticipentsIntent",
+                            cardText: $"ParticipentsIntent",
+                            gameSelected: null,
+                            participents: null,
+                            version: null
+                            );
 
-                    case "ConfrimIntent":
-                        return Response(
-                        shouldEndSession: true,
-                        outputSpeech: $"Sure thing, I'll continue",
-                        repromptSpeech: $"If you're stuck, just say help",
-                        cardTitle: null,
-                        cardText: null,
-                        gameSelected: null,
-                        participents: null,
-                        version: null
-                        );
 
-                    case "NextIntent":
-                        Next_requested = true;
-                        return Response(
-                        shouldEndSession: true,
-                        outputSpeech: $"Sure thing, moving to next card",
-                        repromptSpeech: $"If you're stuck, just say help",
-                        cardTitle: null,
-                        cardText: null,
-                        gameSelected: null,
-                        participents: null,
-                        version: null
-                        );
-                        */
+                        /*
+                          case "AMAZON.HelpIntent":
+                              context.Logger.LogLine($"I'm in the HelpIntent section");
+                              Help_requested = true;
+                              return Response(
+                              shouldEndSession: false,
+                              outputSpeech: null,
+                              repromptSpeech: null,
+                              cardTitle: $"Help section",
+                              cardText: $"Here will be all the help text",
+                              gameSelected: null,
+                              participents: null,
+                              version: null
+                              );
+
+                          case "TotallyLostIntent":
+                              context.Logger.LogLine($"I'm in the TotallyLostIntent section");
+                              Totally_Lost = true;
+                              return Response(
+                              shouldEndSession: false,
+                              outputSpeech: $"Looks like you're totally lost !",
+                              repromptSpeech: $"You still there ?",
+                              cardTitle: $"Totally Lost",
+                              cardText: $"Text will be added",
+                              gameSelected: GAME,
+                              participents: PARTICIPENTS,
+                              version: null
+                              );
+                          /*
+                          case "AMAZON.CancelIntent":
+                              if (Stop_requested) {
+                                  Leave_requested = true;
+                              }
+                              Stop_requested = true;
+                              return Response(
+                              shouldEndSession: true,
+                              outputSpeech: $"woah, Hold up",
+                              repromptSpeech: $"If you're stuck, just say help",
+                              cardTitle: null,
+                              cardText: null,
+                              gameSelected: null,
+                              participents: null,
+                              version: null
+                              );
+
+                          case "ConfrimIntent":
+                              return Response(
+                              shouldEndSession: true,
+                              outputSpeech: $"Sure thing, I'll continue",
+                              repromptSpeech: $"If you're stuck, just say help",
+                              cardTitle: null,
+                              cardText: null,
+                              gameSelected: null,
+                              participents: null,
+                              version: null
+                              );
+
+                          case "NextIntent":
+                              Next_requested = true;
+                              return Response(
+                              shouldEndSession: true,
+                              outputSpeech: $"Sure thing, moving to next card",
+                              repromptSpeech: $"If you're stuck, just say help",
+                              cardTitle: null,
+                              cardText: null,
+                              gameSelected: null,
+                              participents: null,
+                              version: null
+                              );
+                              */
                 }
 
                 return Response(
@@ -282,7 +362,7 @@ namespace Sesh_Box_Lambda
                 Game_selecting = false;
                 if (gameSelected != null)
                 {
-                    outputSpeech = "So, playing " + gameSelected;
+                    outputSpeech = "So, playing " + gameSelected + ", ";
                 }
                 else if (gameSelected == null)
                 {
@@ -297,17 +377,17 @@ namespace Sesh_Box_Lambda
                 }
                 else if (participents == null)
                 {
-                    outputSpeech += "So then, how many people are playing";
+                    outputSpeech += " and how many people are playing";
                     shouldEndSession = false;
                     // participents = to returned game value from new response
                     repromptSpeech = "Just say how many people are playing.";
                 }
-                /*
+                
                 if (version != null)
                 {
-                    picoloRule = newPicoloRules.Rules();
-                    outputSpeech += " and playing the " + version + "version. First rule: " + picoloRule;
-                    cardText += picoloRule;
+                    //picoloRule = newPicoloRules.Rules();
+                    outputSpeech += " and playing the " + version + "version. First rule: ";// + picoloRule;
+                    //cardText += picoloRule;
                 }
                 else if (version == null)
                 {
@@ -315,7 +395,7 @@ namespace Sesh_Box_Lambda
                     shouldEndSession = false;
                     // participents = to returned game value from new response
                     repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
-                }*/
+                }
             }
 
             /// Voice Testing
