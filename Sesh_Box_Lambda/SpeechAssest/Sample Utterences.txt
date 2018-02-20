@@ -73,17 +73,17 @@ ConfirmIntent Yes want to hear about that
 ConfirmIntent Yes want to know more about that
 
 NamesIntent {Persons}
-NamesIntent {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} 
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
-NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons}
+NamesIntent {Persons} and {Persons}
+NamesIntent {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons} 
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons}
+NamesIntent {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} {Persons} and {Persons}

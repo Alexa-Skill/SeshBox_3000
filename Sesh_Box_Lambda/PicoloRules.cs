@@ -324,7 +324,7 @@ namespace Sesh_Box_Lambda
                 randomParticipentName + "  you're not Cupid anymore. ",
                 " Drink " + beverageConsumption + "  times if you like being watched while you make love" });
 
-            List<string> defaultRules = new List<string>(new string[]{ randomParticipentName + ", you have two minutes to finish your drink",
+            List<string> gettingStartedRules = new List<string>(new string[]{ randomParticipentName + ", you have two minutes to finish your drink",
                 randomParticipentName + ", say something you have NEVER done. Those who have done it, drink " + beverageConsumption + " times",
                 randomParticipentName + ", give out " + beverageConsumption + " sips",
                 randomParticipentName + ", drink " + beverageConsumption + " times",
@@ -543,12 +543,12 @@ namespace Sesh_Box_Lambda
             }
             else if (gameVersion == "getting started")
             {
-                return defaultRules[index];
+                return gettingStartedRules[index];
             }
-            else if (gameVersion == "geting illy") {
+            else if (gameVersion == "geting silly") {
                 return gettingSillyRules[index];
             }
-            return "Major fucking error with the rule return";
+            return "Major error with the rule return";
         }
     }
 }

@@ -4,6 +4,10 @@ using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using System;
 using System.Collections.Generic;
+using Sesh_Box_Lambda.Managers;
+using Sesh_Box_Lambda.Entities;
+using System.Linq;
+
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -11,13 +15,33 @@ using System.Collections.Generic;
 
 namespace Sesh_Box_Lambda
 {
+    public class SeshAttributes
+    {
+
+        public string Game { get => Game; set => Game = value; }
+        public string Version { get => Version; set => Version = value; }
+        public string Particepents { get => Particepents; set => Particepents = value; }
+        public string ParticepentsNames { get => ParticepentsNames; set => ParticepentsNames = value; }
+    }
+
     public class Function
     {
+        
+        
+        
+        SeshAttributes seshAttributes = new SeshAttributes();
+        
+
+
         // Name to start the skill
         private const string INVOCATION_NAME = "Sesh Box";
         private static bool Help_requested = false;
         private static bool Totally_Lost = false;
-        private static bool Game_selecting= false;
+        private static bool Game_selecting;
+        private static bool Game_selected;
+        private static bool Version_selected;
+        private static bool Participents_selected;
+        private static bool Names_selected = false;
         private static bool Stop_requested = false;
         private static bool Leave_requested = false;
         private static bool Confirm_requested = false;
@@ -30,8 +54,17 @@ namespace Sesh_Box_Lambda
         string PERSON_REQUESTED = null;
         string[] names = null;
 
-        //PicoloRules newPicoloRules = new PicoloRules();
-        //string picoloRule;
+     
+        PicoloRules newPicoloRules = new PicoloRules();
+        string picoloRule;
+
+        string gameAttribute = null;
+        string gameVersionAttribute = null;
+        string personNumberAttribute = null;
+        string personsNamesAttribute = null;
+        
+            
+        
 
         /// <summary>
         /// Main FXN handler for the skill
@@ -45,15 +78,90 @@ namespace Sesh_Box_Lambda
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
+                       
+            //var checkAttributes1 = input.Session.Attributes["sesh"];
+
+
+            /*var checkAttributes2 = input.Session.Attributes.Count;
+            var checkAttributes3 = input.Session.Attributes.Keys;
+            var seshAtrributes = new { Game = "", Version = "", Participents = "", ParticipentsNames = "" };
+
+            
+            if (input.Session.Attributes.ContainsKey("sesh")) {
+                checkDictionary = input.Session.Attributes;
+            }
+
+
+            */
+
+            Dictionary<string, object> checkDictionary = new Dictionary<string, object>() { };
+
+
+
+
+            
+          
+
+            /*
+            personNumberAttribute = input.Session.Attributes["Participents"].ToString();
+            personsNamesAttribute = input.Session.Attributes["Participents_Names"].ToString();
+            */
+            /*
+             int Day1 = ((BD)dict["Birthday"]).Day;
+             Day1 = checkDictionary
+             dict = input
+             .Day is the element I'm accessing fomr the caster object
+             
+
+            string gameNAme;
+            var e = input.Session.Attributes.GetEnumerator();
+            e.MoveNext();
+            var anElement = e.Current;
+            */
             // check what type of a request it is like an IntentRequest or a LaunchRequest
             var requestType = input.GetRequestType();
             if (requestType == typeof(IntentRequest))
             {
                 var intentRequest = input.Request as IntentRequest;
-                
-                //GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
-                //PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
-                //VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+
+
+
+                /*
+                if (input.Session.Attributes.TryGetValue("Game", out object x)) {
+                    gameNAme = x.ToString();
+                }
+                else {
+                    gameNAme = "Not set";
+                }
+                */
+               
+                if (input.Session.Attributes != null)
+                {
+                    
+                    if (input.Session.Attributes.TryGetValue("Game", out object g)) {
+                        gameAttribute = g.ToString();
+                        //GAME_REQUESTED = g.ToString();
+                    }
+                    
+                    if (input.Session.Attributes.TryGetValue("Version",out object x))
+                    {
+                        gameVersionAttribute = x.ToString();
+                        //VERSION_REQUESTED = x.ToString();
+                    }
+                    
+                    if (input.Session.Attributes.TryGetValue("Participents", out object y))
+                    {
+                        personNumberAttribute = y.ToString();
+                        //PARTICIPENTS_REQUESTED = y.ToString();
+                    }
+                    if (input.Session.Attributes.TryGetValue("Participents_Names", out object z))
+                    {
+                        personsNamesAttribute = z.ToString();
+                       //PERSON_REQUESTED = z.ToString();
+                    }
+                }
+
+
 
                 switch (intentRequest.Intent.Name)
                 {
@@ -73,28 +181,33 @@ namespace Sesh_Box_Lambda
                         $"Don't be afraid to ask for help",
                         gameSelected: null,
                         participents: null,
+                        participentsNames: null,
                         version: null
                         );
                         
                     case "StartGameIntent":
-                        //newPicoloRules.GameVersion = GAME_QUESTED;
                         GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
+                        //newPicoloRules.GameVersion = GAME_REQUESTED;
+                        //seshAttributes.Game = GAME_REQUESTED;
                         Game_selecting = true;
                         return Response(
                             shouldEndSession: false,
                             outputSpeech: $"Starting a game of " + GAME_REQUESTED,
                             repromptSpeech: $"If you're stuck, just say help",
                             cardTitle: $"Let's play!",
-                            cardText: $"Starting a " + GAME_REQUESTED,
+                            cardText: $"Starting a game of " + gameAttribute,
                             gameSelected: GAME_REQUESTED,
                             participents: null,
+                            participentsNames: null,
                             version: null
                             );
 
                     case "StartGameVersionIntent":
-                        //newPicoloRules.GameVersion = GAME_QUESTED;
                         GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
                         VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+                        seshAttributes.Game = GAME_REQUESTED;
+                        seshAttributes.Version = VERSION_REQUESTED;
+                        newPicoloRules.GameVersion = VERSION_REQUESTED;
                         Game_selecting = true;
                         return Response(
                             shouldEndSession: false,
@@ -104,13 +217,18 @@ namespace Sesh_Box_Lambda
                             cardText: $"Starting a " + GAME_REQUESTED + " " + VERSION_REQUESTED + " version",
                             gameSelected: GAME_REQUESTED,
                             participents: null,
+                            participentsNames: null,
                             version: VERSION_REQUESTED
                             );
 
                     case "StartGameParticipentsIntent":
-                        //newPicoloRules.GameVersion = GAME_QUESTED;
                         GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
                         PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+
+                        seshAttributes.Game = GAME_REQUESTED;
+                        seshAttributes.Version = VERSION_REQUESTED;
+
+                        //newPicoloRules.GameVersion = GAME_REQUESTED;
                         Game_selecting = true;
                         return Response(
                             shouldEndSession: false,
@@ -120,14 +238,20 @@ namespace Sesh_Box_Lambda
                             cardText: $"Starting a " + GAME_REQUESTED + " with " + PARTICIPENTS_REQUESTED + " people,",
                             gameSelected: GAME_REQUESTED,
                             participents: PARTICIPENTS_REQUESTED,
+                            participentsNames: null,
                             version: null
                             );
 
                     case "StartGameSpecificIntent":
-                        //newPicoloRules.GameVersion = GAME_QUESTED;
                         GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
                         PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
                         VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+
+                        seshAttributes.Game = GAME_REQUESTED;
+                        seshAttributes.Version = VERSION_REQUESTED;
+                        seshAttributes.Particepents = PARTICIPENTS_REQUESTED;
+
+                        newPicoloRules.GameVersion = VERSION_REQUESTED;
                         Game_selecting = true;
                         return Response(
                             shouldEndSession: false,
@@ -137,25 +261,53 @@ namespace Sesh_Box_Lambda
                             cardText: $"Starting a " + GAME_REQUESTED + ", " + VERSION_REQUESTED + " version, with " + PARTICIPENTS_REQUESTED + " people,",
                             gameSelected: GAME_REQUESTED,
                             participents: PARTICIPENTS_REQUESTED,
+                            participentsNames: null,
                             version: VERSION_REQUESTED
                             );
 
                     case "ParticipentsIntent":
                         PARTICIPENTS_REQUESTED = intentRequest?.Intent?.Slots["Participents"].Value;
+
+                        seshAttributes.Particepents = PARTICIPENTS_REQUESTED;
+
+                        Game_selecting = true;
                         return Response(
                             shouldEndSession: false,
-                            outputSpeech: $"Got it " + PARTICIPENTS_REQUESTED.ToString() + " people are playing, who are they",//Move this last bit to the response builder
+                            outputSpeech: $"Got it " + PARTICIPENTS_REQUESTED + " people are playing, who are they",//Move this last bit to the response builder
                             //ssmlOutputSpeech: $"<speak>Okay, so " + PARTICIPENTS_REQUESTED + " are playing <break time = \"3s\" />So what are there names ?</ speak > ",
                             repromptSpeech: $"If you're stuck, just say help",
                             cardTitle: $"ParticipentsIntent",
                             cardText: $"ParticipentsIntent",
                             gameSelected: null,
-                            participents: null,
+                            participents: PARTICIPENTS_REQUESTED,
+                            participentsNames: null,
                             version: null
+                            );
+
+                    case "VersionIntent":
+                        VERSION_REQUESTED = intentRequest?.Intent?.Slots["Version"].Value;
+
+                        //seshAttributes.Version = VERSION_REQUESTED;
+
+                        newPicoloRules.GameVersion = VERSION_REQUESTED;
+                        Game_selecting = true;
+                        return Response(
+                            shouldEndSession: false,
+                            outputSpeech: $"Got it " + VERSION_REQUESTED + " version",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"ParticipentsIntent",
+                            cardText: $"ParticipentsIntent",
+                            gameSelected: null,
+                            participents: null,
+                            participentsNames: null,
+                            version: VERSION_REQUESTED
                             );
 
                     case "NamesIntent":
                         PERSON_REQUESTED = intentRequest?.Intent?.Slots["Persons"].Value;
+
+                        seshAttributes.ParticepentsNames = PERSON_REQUESTED;
+                        /*
                         names = PERSON_REQUESTED.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                         string outspeach = $"Got it, ";
                         for (int i = 0; i < names.Length; i++)
@@ -167,17 +319,18 @@ namespace Sesh_Box_Lambda
                             {
                                 outspeach += names[i] + ", ";
                             }
-                        }
-                       
+                        }*/
+                        Game_selecting = true;
                         return Response(
                             shouldEndSession: false,
-                            outputSpeech: outspeach,
+                            outputSpeech: $"outspeach",
                             //ssmlOutputSpeech: $"<speak>Okay, so " + PARTICIPENTS_REQUESTED + " are playing <break time = \"3s\" />So what are there names ?</ speak > ",
                             repromptSpeech: $"If you're stuck, just say help",
                             cardTitle: $"ParticipentsIntent",
                             cardText: $"ParticipentsIntent",
                             gameSelected: null,
                             participents: null,
+                            participentsNames: PERSON_REQUESTED,
                             version: null
                             );
 
@@ -262,6 +415,7 @@ namespace Sesh_Box_Lambda
                     cardText: null,
                     gameSelected: null,
                     participents: null,
+                    participentsNames: null,
                     version: null
                     );
             }
@@ -275,6 +429,7 @@ namespace Sesh_Box_Lambda
                     cardText: $"Wellcome to Sesh Box 3000",
                     gameSelected: null,
                     participents: null,
+                    participentsNames: null,
                     version: null
                     );
             }
@@ -289,6 +444,7 @@ namespace Sesh_Box_Lambda
                     cardText: $"I've no idea what's going on !?",
                     gameSelected: null,
                     participents: null,
+                    participentsNames: null,
                     version: null
                     );
             }
@@ -350,9 +506,20 @@ namespace Sesh_Box_Lambda
         /// <param name="participents"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string version)
+        private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string participentsNames, string version)
         {
+
+            var attribute = new Attributes();
+            var entityManager = new EntityManager();
+
+            attribute.game_id = 99;
+            attribute.game = gameSelected;
+            /*attribute.game_type = version;
+            attribute.num_of_partitcipents = Convert.ToInt32(participents);
+            attribute.participents_names = participentsNames.Split(' ').ToList();
+            */
             
+           entityManager.AddAttributes(attribute);
 
             /// Voice Testing 
             /// Section 1: Yes. But still asks for section 2&3 at the same time 
@@ -360,22 +527,35 @@ namespace Sesh_Box_Lambda
             /// Section 3: Yed
             if (Game_selecting) {
                 Game_selecting = false;
-                if (gameSelected != null)
+                if (gameSelected != null || gameAttribute != null)
                 {
                     outputSpeech = "So, playing " + gameSelected + ", ";
+
                 }
-                else if (gameSelected == null)
+                else if ((gameSelected == null) && (!Game_selected) && (gameAttribute == null))
                 {
                     outputSpeech = "First let's see what game you'd like to play ?";
                     shouldEndSession = false;
                     // gameSelected = to returned game value from new response
                     repromptSpeech = "If you're stuck just ask, what games can I play";
                 }
+                if (version != null)
+                {
+                    outputSpeech += " and playing the " + version + "version,";
+                }
+                else if ((version == null) && (!Version_selected))
+                {
+                    outputSpeech += "Now, what version of the game do you wanna play";
+                    shouldEndSession = false;
+                    // participents = to returned game value from new response
+                    repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
+                }
+                /*
                 if (participents != null)
                 {
                     outputSpeech += " with " + Int32.Parse(participents) + " players";
                 }
-                else if (participents == null)
+                else if ((participents == null) && (!Participents_selected))
                 {
                     outputSpeech += " and how many people are playing";
                     shouldEndSession = false;
@@ -383,18 +563,18 @@ namespace Sesh_Box_Lambda
                     repromptSpeech = "Just say how many people are playing.";
                 }
                 
-                if (version != null)
+                if (names == null)
                 {
-                    //picoloRule = newPicoloRules.Rules();
-                    outputSpeech += " and playing the " + version + "version. First rule: ";// + picoloRule;
-                    //cardText += picoloRule;
-                }
-                else if (version == null)
+                    outputSpeech += " and I need to know the names of the people playing";
+                    repromptSpeech = "Just say the names of who's playing";
+                }*/
+                // Game is ready to start
+                if ((gameAttribute != null) && (gameVersionAttribute != null) || (gameAttribute != null) && (version !=null) || (version != null) && (gameSelected != null))
                 {
-                    outputSpeech += "Now, what version of the game do you wanna play";
-                    shouldEndSession = false;
-                    // participents = to returned game value from new response
-                    repromptSpeech = "If you're stuck, just ask what versions of the game I can play";
+                    picoloRule = newPicoloRules.Rules();
+                    outputSpeech += " Let's start with the first rule " + picoloRule;
+                    cardText += picoloRule;
+
                 }
             }
 
@@ -515,7 +695,56 @@ namespace Sesh_Box_Lambda
                 cardText += "The next rules is:\n" + picoloRule;
             }*/
 
-            
+            // Updating the values from the user, and saving them as part of the current session of the skill
+            Dictionary<string, object> seshDictionary = new Dictionary<string, object>() { };
+            var seshAtrributes = new { Game = "", Version = "", Participents = "", ParticipentsNames = "" };
+
+            // Checking previous value of the Atrributes and saving new ones if changed
+            if (gameAttribute != null)
+            {
+                seshDictionary.Add("Game", gameAttribute);
+            }
+
+            if (gameVersionAttribute != null)
+            {
+                seshDictionary.Add("Version", gameVersionAttribute);
+            }
+
+            /*
+            if (personNumberAttribute != null)
+            {
+                seshDictionary.Add("Participents", personNumberAttribute);
+            }
+
+            if (personsNamesAttribute != null)
+            {
+                seshDictionary.Add("Participents_Names", personsNamesAttribute);
+            }
+            */
+
+
+
+
+            if (gameSelected != null)
+            {
+                seshDictionary.Add("Game", gameSelected);
+            }
+
+            if (version != null)
+            {
+                seshDictionary.Add("Version", version);
+            }
+            /*
+            if (participents != null )
+            {
+                seshDictionary.Add("Participents", participents);
+            }
+
+            if (participentsNames != null)
+            {
+                seshDictionary.Add("Participents_Names", participentsNames);
+            }*/
+           
             var response = new ResponseBody
             {
                 ShouldEndSession = shouldEndSession,
@@ -523,11 +752,12 @@ namespace Sesh_Box_Lambda
                 Card = new StandardCard { Title = cardTitle, Content = cardText },
                 Reprompt = new Reprompt() { OutputSpeech = new PlainTextOutputSpeech() { Text = repromptSpeech } }
             };
-
-            var skillResponse = new SkillResponse
+            
+        var skillResponse = new SkillResponse
             {
-                Response = response,
-                Version = "1.0"
+                Version = "1.0",
+                SessionAttributes = seshDictionary,
+                Response = response
             };
             return skillResponse;
         } // End of Standard Skill Response
