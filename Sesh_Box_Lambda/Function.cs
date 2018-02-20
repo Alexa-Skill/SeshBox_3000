@@ -2,11 +2,7 @@ using Amazon.Lambda.Core;
 using Alexa.NET.Response;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
-using System;
 using System.Collections.Generic;
-using Sesh_Box_Lambda.Managers;
-using Sesh_Box_Lambda.Entities;
-using System.Linq;
 
 
 
@@ -220,6 +216,22 @@ namespace Sesh_Box_Lambda
                             participentsNames: null,
                             version: VERSION_REQUESTED
                             );
+
+                    case "NextCardIntent":
+                        Next_requested = true;
+                        Game_selecting = true;
+                        return Response(
+                            shouldEndSession: false,
+                            outputSpeech: $"Next card is,",
+                            repromptSpeech: $"If you're stuck, just say help",
+                            cardTitle: $"Next Card",
+                            cardText: null,
+                            gameSelected: null,
+                            participents: null,
+                            participentsNames: null,
+                            version: null
+                            );
+
 
                     case "StartGameParticipentsIntent":
                         GAME_REQUESTED = intentRequest?.Intent?.Slots["Games"].Value;
@@ -508,18 +520,7 @@ namespace Sesh_Box_Lambda
         /// <returns></returns>
         private SkillResponse Response(bool shouldEndSession, string outputSpeech, string repromptSpeech, string cardTitle, string cardText, string gameSelected, string participents, string participentsNames, string version)
         {
-
-            var attribute = new Attributes();
-            var entityManager = new EntityManager();
-
-            attribute.game_id = 99;
-            attribute.game = gameSelected;
-            /*attribute.game_type = version;
-            attribute.num_of_partitcipents = Convert.ToInt32(participents);
-            attribute.participents_names = participentsNames.Split(' ').ToList();
-            */
             
-           entityManager.AddAttributes(attribute);
 
             /// Voice Testing 
             /// Section 1: Yes. But still asks for section 2&3 at the same time 
@@ -569,13 +570,21 @@ namespace Sesh_Box_Lambda
                     repromptSpeech = "Just say the names of who's playing";
                 }*/
                 // Game is ready to start
-                if ((gameAttribute != null) && (gameVersionAttribute != null) || (gameAttribute != null) && (version !=null) || (version != null) && (gameSelected != null))
+                if ((gameAttribute != null) && (gameVersionAttribute != null) || (gameAttribute != null) && (version !=null) || (version != null) && (gameSelected != null) && (!Next_requested))
                 {
                     picoloRule = newPicoloRules.Rules();
                     outputSpeech += " Let's start with the first rule " + picoloRule;
                     cardText += picoloRule;
 
                 }
+
+                // User asks for the next card
+                if (Next_requested) {
+                    outputSpeech = picoloRule;
+                    cardText += picoloRule;
+                    Next_requested = false;
+                }
+                
             }
 
             /// Voice Testing

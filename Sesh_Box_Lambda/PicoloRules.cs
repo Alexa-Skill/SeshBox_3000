@@ -18,6 +18,8 @@ namespace Sesh_Box_Lambda
 
         public string Rules()
         {
+            int randomIndex = rnd.Next(1, 100);
+            int beverageConsumption = rnd.Next(1, 5);
 
             List<string> gettingSillyRules = new List<string>(new string[] {
                 randomParticipentName + ", imitate a guy taking a shit or drink " + beverageConsumption + " times",
@@ -525,28 +527,25 @@ namespace Sesh_Box_Lambda
                 "Drink " + beverageConsumption + " times if you've ever had your boyfriend or girlfriend stolen by one of your friends",
                 "Drink " + beverageConsumption + " times if you've ever taken a shit in a Turkish toilet" });
 
-            
-            int index = 0;
-            int randomIndex = rnd.Next(1,100);
-
-            if (!randomNumberCheck.Contains(randomIndex))
+           
+            while (!randomNumberCheck.Contains(randomIndex))
             {
                 randomNumberCheck.Add(randomIndex);
+                randomIndex = rnd.Next(1, 100);
             }
-            else {
-                index = randomIndex;
-            }
+
+
 
             if (gameVersion == "Caliente")
             {
-                return calienteRules[index];
+                return calienteRules[randomIndex];
             }
             else if (gameVersion == "getting started")
             {
-                return gettingStartedRules[index];
+                return gettingStartedRules[randomIndex];
             }
             else if (gameVersion == "geting silly") {
-                return gettingSillyRules[index];
+                return gettingSillyRules[randomIndex];
             }
             return "Major error with the rule return";
         }

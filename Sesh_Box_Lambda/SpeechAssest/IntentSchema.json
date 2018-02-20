@@ -25,82 +25,91 @@
             "intent": "TotallyLostIntent"
         },
         {
-            "intent": "TotallyLostGameIntent",
             "slots": [
                 {
                     "name": "Games",
                     "type": "LIST_OF_GAMES"
                 }
-            ]
+            ],
+            "intent": "TotallyLostGameIntent"
         },
         {
-            "intent": "TotallyLostVersionIntent",
+            "slots": [
+                {
+                    "name": "Next",
+                    "type": "NEXT"
+                }
+            ],
+            "intent": "NextCardIntent"
+        },
+
+        {
             "slots": [
                 {
                     "name": "Version",
                     "type": "PICOLO_VERSIONS"
                 }
-            ]
+            ],
+            "intent": "TotallyLostVersionIntent"
         },
         {
-            "intent": "TotallyLostParticipentsIntent",
             "slots": [
                 {
                     "name": "Participents",
                     "type": "AMAZON.NUMBER"
                 }
-            ]
+            ],
+            "intent": "TotallyLostParticipentsIntent"
         },
         {
-            "intent": "ParticipentsIntent",
             "slots": [
                 {
                     "name": "Participents",
                     "type": "AMAZON.NUMBER"
                 }
-            ]
+            ],
+            "intent": "ParticipentsIntent"
         },
         {
-            "intent": "NamesIntent",
             "slots": [
                 {
                     "name": "Persons",
                     "type": "AMAZON.GB_FIRST_NAME"
                 }
-            ]
+            ],
+            "intent": "NamesIntent"
         },
         {
-            "intent": "VersionIntent",
             "slots": [
                 {
                     "name": "Version",
                     "type": "PICOLO_VERSIONS"
                 }
-            ]
+            ],
+            "intent": "VersionIntent"
         },
         {
             "intent": "SeshBoxIntent"
         },
         {
-            "intent": "StartGameIntent",
             "slots": [
                 {
                     "name": "Games",
                     "type": "LIST_OF_GAMES"
                 }
-            ]
+            ],
+            "intent": "StartGameIntent"
         },
         {
-            "intent": "StartParticipentsIntent",
             "slots": [
                 {
                     "name": "Participents",
                     "type": "AMAZON.NUMBER"
                 }
-            ]
+            ],
+            "intent": "StartParticipentsIntent"
         },
         {
-            "intent": "StartGameVersionIntent",
             "slots": [
                 {
                     "name": "Games",
@@ -110,10 +119,10 @@
                     "name": "Version",
                     "type": "PICOLO_VERSIONS"
                 }
-            ]
+            ],
+            "intent": "StartGameVersionIntent"
         },
         {
-            "intent": "StartGameParticipentsIntent",
             "slots": [
                 {
                     "name": "Games",
@@ -123,10 +132,10 @@
                     "name": "Participents",
                     "type": "AMAZON.NUMBER"
                 }
-            ]
+            ],
+            "intent": "StartGameParticipentsIntent"
         },
         {
-            "intent": "StartGameSpecificIntent",
             "slots": [
                 {
                     "name": "Games",
@@ -140,7 +149,8 @@
                     "name": "Version",
                     "type": "PICOLO_VERSIONS"
                 }
-            ]
+            ],
+            "intent": "StartGameSpecificIntent"
         }
     ]
 }

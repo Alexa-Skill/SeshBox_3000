@@ -51,6 +51,8 @@ TotallyLostParticipentsIntent what can we play with {Participents} people
 TotallyLostParticipentsIntent what can I do with {Participents} people
 TotallyLostParticipentsIntent what can we do with {Participents} people
 
+NextCardIntent {Next}
+
 AMAZON.StopIntent no
 AMAZON.StopIntent nope
 AMAZON.StopIntent no thanks
