@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Sesh_Box_Lambda.UnitTest {
+namespace Sesh_Box_Lambda.UnitTest
+{
 
     public class IntentTests{
         private const string ExamplesPath = @"Examples";
@@ -15,17 +14,6 @@ namespace Sesh_Box_Lambda.UnitTest {
         private const string StartGameeJson = "Start Game Version Request Request.json";
         private const string StartGameVerioneJson = "Welcome Request.json";
         private const string NextCardJson = "Next Card.json";
-
-        public IntentTests()
-        {
-            // Do "global" initialization here; Only called once.
-        }
-
-        public void Dispose()
-        {
-            // Do "global" teardown here; Only called once.
-        }
-
 
         [Fact]
         public void Intent_Test() {
@@ -53,13 +41,6 @@ namespace Sesh_Box_Lambda.UnitTest {
         {
             var json = File.ReadAllText(Path.Combine(ExamplesPath, filename));
             return JsonConvert.DeserializeObject<T>(json);
-        }
-    }
-
-    public class DummyTests : IClassFixture<IntentTests>
-    {
-        public void SetFixture(IntentTests data)
-        {
         }
     }
 }
