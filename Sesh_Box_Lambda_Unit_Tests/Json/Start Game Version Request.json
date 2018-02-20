@@ -1,0 +1,79 @@
+﻿{
+    "version": "1.0",
+    "session": {
+        "new": false,
+        "sessionId": "amzn1.echo-api.session.214654d1-0996-4df5-923a-d3a26963dc71",
+        "application": {
+            "applicationId": "amzn1.ask.skill.03d6ed5b-0f2b-4aff-b5f0-d5b662d6119e"
+        },
+        "attributes": {
+            "Game": "picolo"
+        },
+        "user": {
+            "userId": "amzn1.ask.account.AEWMRK6WNVQJ5MH2LUQ6XFPIMDE3AVZMYLQSIUKJD3BBRHPJ6NSZPVACEI52TP3I5N4ZTSNS4KNRKPF25SUWKLZFIK4J53ERKI54A4MJ5246Z5XKB5PAN7DIR7YYMT6COMIRGMKTGTMZIIQG56T2MCRLJ3FC72O2DYWGYI62EEK3J2FZ7R2LIBGJYXUHE76PYYX2DEI4HYLXA4Q"
+        }
+    },
+    "context": {
+        "AudioPlayer": {
+            "playerActivity": "IDLE"
+        },
+        "Display": {
+            "token": ""
+        },
+        "System": {
+            "application": {
+                "applicationId": "amzn1.ask.skill.03d6ed5b-0f2b-4aff-b5f0-d5b662d6119e"
+            },
+            "user": {
+                "userId": "amzn1.ask.account.AEWMRK6WNVQJ5MH2LUQ6XFPIMDE3AVZMYLQSIUKJD3BBRHPJ6NSZPVACEI52TP3I5N4ZTSNS4KNRKPF25SUWKLZFIK4J53ERKI54A4MJ5246Z5XKB5PAN7DIR7YYMT6COMIRGMKTGTMZIIQG56T2MCRLJ3FC72O2DYWGYI62EEK3J2FZ7R2LIBGJYXUHE76PYYX2DEI4HYLXA4Q"
+            },
+            "device": {
+                "deviceId": "amzn1.ask.device.AGM7QTOBIYVNLHA5ZHL25UYNTARKM6UGYGNVPSAQEH3XG4VDH3BZOUAFVDVRY2FZWPG5JL3M5SIBJMMSCUYJT3BFCIARJ7VHAYHFCQEJPGMDDTQFERM24PJEJ3D4UQ3ZN2ELGIK2EHYGMZ3H6DF33K3HRXUA",
+                "supportedInterfaces": {
+                    "AudioPlayer": {},
+                    "Display": {
+                        "templateVersion": "1.0",
+                        "markupVersion": "1.0"
+                    }
+                }
+            },
+            "apiEndpoint": "https://api.eu.amazonalexa.com",
+            "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjAzZDZlZDViLTBmMmItNGFmZi1iNWYwLWQ1YjY2MmQ2MTE5ZSIsImV4cCI6MTUxOTExODM3MywiaWF0IjoxNTE5MTE0NzczLCJuYmYiOjE1MTkxMTQ3NzMsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUdNN1FUT0JJWVZOTEhBNVpITDI1VVlOVEFSS002VUdZR05WUFNBUUVIM1hHNFZESDNCWk9VQUZWRFZSWTJGWldQRzVKTDNNNVNJQkpNTVNDVVlKVDNCRkNJQVJKN1ZIQVlIRkNRRUpQR01ERFRRRkVSTTI0UEpFSjNENFVRM1pOMkVMR0lLMkVIWUdNWjNINkRGMzNLM0hSWFVBIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUVXTVJLNldOVlFKNU1IMkxVUTZYRlBJTURFM0FWWk1ZTFFTSVVLSkQzQkJSSFBKNk5TWlBWQUNFSTUyVFAzSTVONFpUU05TNEtOUktQRjI1U1VXS0xaRklLNEo1M0VSS0k1NEE0TUo1MjQ2WjVYS0I1UEFON0RJUjdZWU1UNkNPTUlSR01LVEdUTVpJSVFHNTZUMk1DUkxKM0ZDNzJPMkRZV0dZSTYyRUVLM0oyRlo3UjJMSUJHSllYVUhFNzZQWVlYMkRFSTRIWUxYQTRRIn19.SO-6O6E4DLSlmPcrDgkcLEwdTL9F24LO-PAdJwJ8ZiImw--3p7MiJL3lQvzw4u9G2NenvAN9e8MURpOc9kji-6itvF7HV3d9aQ_2I_gziozmDQ52Y64DgJiXfey8_vC9pMWlUgMqkItNwQI1x33q5MN4tuCTyYFgRfxuZb2XD_WNf5fyCtgB_CfEKBcjpRDYKaULt83mhkK2laE2Mlz5mRBiLnwfpfI2oI7A0KryCJbezJn7DWrS8q270UWD3rCF0NZD5gXGL6RlyKTSDH17HFH_ZtDjF1t8bMkeLfVrZgfgOb5FkzRlhZIzwXb4fhebD4Hs3bMkwleFAC2RVt2lYA"
+        }
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "amzn1.echo-api.request.c88b587a-285c-4d19-9e87-ee040ccaf717",
+        "timestamp": "2018-02-20T08:19:33Z",
+        "locale": "en-GB",
+        "intent": {
+            "name": "VersionIntent",
+            "confirmationStatus": "NONE",
+            "slots": {
+                "Version": {
+                    "name": "Version",
+                    "value": "getting started",
+                    "resolutions": {
+                        "resolutionsPerAuthority": [
+                            {
+                                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.03d6ed5b-0f2b-4aff-b5f0-d5b662d6119e.PICOLO_VERSIONS",
+                                "status": {
+                                    "code": "ER_SUCCESS_MATCH"
+                                },
+                                "values": [
+                                    {
+                                        "value": {
+                                            "name": "Getting Started",
+                                            "id": "bf647454e36069fd16f1a7a35cf6a865"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "confirmationStatus": "NONE"
+                }
+            }
+        }
+    }
+}
