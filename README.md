@@ -15,6 +15,10 @@ I have rececntly obtained an Amazon Echo, and as soon as I saw that their is an 
 
 After some quick research, I saw that there is a library in C# for the Alexa Skills, along with a toolkit for AWS intergrated with Visual Studios. I thought this would be a prefect idea to implement for this project, to inlcude Web Services, Cloud Computing, extra usage of my Amazon Echo, and of course, to help my fellow students to enjoy their pre-drinks.
 
+## Architecture
+
+Please see Technology.md
+
 ### Glossary
 
 Sesh = An Irish term for a party. But not any party, a sesh is a full evening/night of dirnking and general mayhem.
